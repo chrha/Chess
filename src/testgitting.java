@@ -3,7 +3,7 @@
  */
 public class testgitting {
     public static void main(String args[]){
-        System.out.println("lek med mina bollar");
+        System.out.println("lek med mina bollar,dumbass");
     }
 
 }
