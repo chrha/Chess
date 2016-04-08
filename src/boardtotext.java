@@ -18,7 +18,7 @@ public class boardtotext {
                     u= p.substring(0, Math.min(p.length(), 4));
                 }
                 if (p == null) {
-                    boardtext.append("E2");
+                    boardtext.append("E");
                 }else if (u.equals("King")) {
                     boardtext.append("K");
                 }else if (u.equals("Quee")) {
