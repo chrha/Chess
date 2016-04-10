@@ -57,9 +57,12 @@ public class Board {
     }
 
     public void movePiece(int x0,int y0,int x,int y){
-        squares[x][y]=squares[x0][y0];
-        squares[x0][y0]=null;
-        notifyListeners();
+        if (squares[x0][y0] != null &&!(x0==x && y0 ==y) && squares[x0][y0].canMove(x,y)){
+            squares[x][y]=squares[x0][y0];
+            squares[x0][y0]=null;
+            notifyListeners();
+        }
+
     }
     public void addBoardListener(BoardListener bl) {
         boardlisteners.add(bl);

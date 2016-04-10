@@ -24,7 +24,7 @@ public class Rook implements Piece {
 
     @Override
     public boolean canMove(int x, int y) {
-        return false;
+        return true;
     }
 
     @Override

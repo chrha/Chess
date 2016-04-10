@@ -37,6 +37,7 @@ public class ChessFrame extends JFrame implements MouseListener {
         double yd = Math.floor((e.getY()-30)/75);
         int x=(int) xd;
         int y=(int) yd;
+        System.out.println("cx:"+currentX+" cy:"+currentY+"x:"+x+"y:"+y);
         board.movePiece(currentX,currentY,x,y);
     }
 
