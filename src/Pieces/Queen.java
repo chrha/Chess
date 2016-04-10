@@ -1,13 +1,21 @@
 package Pieces;
 
+import javax.swing.*;
+
 /**
  * Created by Ilian on 2016-04-06.
  */
 public class Queen implements Piece{
     private boolean isWhite;
+    private ImageIcon icon;
 
     public Queen(boolean isWhite) {
         this.isWhite = isWhite;
+        if (isWhite){
+            icon = new ImageIcon(getClass().getResource("/resources/Queen_White.png"));
+        }else{
+            icon = new ImageIcon(getClass().getResource("/resources/Queen_Black.png"));
+        }
     }
 
     @Override
@@ -27,5 +35,8 @@ public class Queen implements Piece{
         }else{
             return "Queen"+"Black";
         }
+    }
+    public ImageIcon getIcon() {
+        return icon;
     }
 }

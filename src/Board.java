@@ -1,18 +1,21 @@
 import Pieces.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by chris on 3/8/16.
  */
 public class Board {
     public final static int SIZE=8;
     private Piece squares[][];
+    private List<BoardListener> boardlisteners;
 
-    public Piece[][] getSquares() {
-        return squares;
-    }
+
 
     public Board() {
         this.squares = new Piece[SIZE][SIZE];
+        this.boardlisteners = new ArrayList<>();
         for (int y=0;y<SIZE;y++){
             for (int x = 0;x<SIZE;x++){
                 if ( y== 1){
@@ -44,7 +47,27 @@ public class Board {
             }
         }
     }
+
+    public Piece[][] getSquares() {
+        return squares;
+    }
+
     public Piece getPiece(int x, int y){
         return this.squares[x][y];
+    }
+
+    public void movePiece(int x0,int y0,int x,int y){
+        squares[x][y]=squares[x0][y0];
+        squares[x0][y0]=null;
+        notifyListeners();
+    }
+    public void addBoardListener(BoardListener bl) {
+        boardlisteners.add(bl);
+    }
+
+    public void notifyListeners() {
+        for (BoardListener listener : boardlisteners) {
+            listener.BoardChanged();
+        }
     }
 }

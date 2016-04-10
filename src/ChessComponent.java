@@ -1,10 +1,12 @@
+import Pieces.Bishop;
+
 import javax.swing.*;
 import java.awt.*;
 
 /**
  * Created by Ilian on 2016-04-06.
  */
-public class ChessComponent extends JComponent {
+public class ChessComponent extends JComponent implements BoardListener {
     private final static int BLOCK = 70;
     private Board board;
 
@@ -35,11 +37,20 @@ public class ChessComponent extends JComponent {
 
                     }
                 }
+                if (board.getPiece(x,y) != null){
+                    board.getPiece(x,y).getIcon().paintIcon(this,g2d,x*BLOCK,y*BLOCK);
+                }
+
+
             }
         }
 }
     @Override
     public Dimension getPreferredSize(){
         return new Dimension(Board.SIZE * BLOCK, Board.SIZE* BLOCK);
+    }
+
+    public void BoardChanged(){
+        repaint();
     }
 }
