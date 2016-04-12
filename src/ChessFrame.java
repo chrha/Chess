@@ -16,29 +16,30 @@ public class ChessFrame extends JFrame implements MouseListener {
         addMouseListener(this);
         this.board = board;
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        final ChessComponent sarea =new ChessComponent(board);
-        board.addBoardListener(sarea);
+        final ChessComponent chessComp =new ChessComponent(board);
+        board.addBoardListener(chessComp);
         this.setLayout(new BorderLayout());
-        this.add(sarea, BorderLayout.CENTER);
+        this.add(chessComp, BorderLayout.CENTER);
         this.pack();
         this.setVisible(true);
 
     }
     public void mousePressed(MouseEvent e) {
-        double xd = Math.floor(e.getX()/75);
-        double yd = Math.floor((e.getY()-30)/75);
+        double xd = Math.floor((e.getX()-10)/70);
+        double yd = Math.floor((e.getY()-32)/70);
         currentX = (int) xd;
         currentY = (int) yd;
 
     }
 
     public void mouseReleased(MouseEvent e) {
-        double xd = Math.floor(e.getX()/75);
-        double yd = Math.floor((e.getY()-30)/75);
+        double xd = Math.floor((e.getX()-10)/70);
+        double yd = Math.floor(((e.getY()-32))/70);
         int x=(int) xd;
         int y=(int) yd;
         System.out.println("cx:"+currentX+" cy:"+currentY+"x:"+x+"y:"+y);
         board.movePiece(currentX,currentY,x,y);
+        System.out.println("X: "+(e.getX()-10)+"Y: "+(e.getY()-32));
     }
 
     public void mouseEntered(MouseEvent e) {
