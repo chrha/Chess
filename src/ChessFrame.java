@@ -38,7 +38,10 @@ public class ChessFrame extends JFrame implements MouseListener {
         int x=(int) xd;
         int y=(int) yd;
         System.out.println("cx:"+currentX+" cy:"+currentY+"x:"+x+"y:"+y);
-        board.movePiece(currentX,currentY,x,y);
+        if (currentX != x || currentY != y){
+            board.movePiece(currentX,currentY,x,y);
+        }
+
         System.out.println("X: "+(e.getX()-10)+"Y: "+(e.getY()-32));
     }
 

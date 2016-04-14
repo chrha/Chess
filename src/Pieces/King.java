@@ -24,7 +24,10 @@ public class King implements Piece {
     }
 
     @Override
-    public boolean canMove(int x, int y) {
+    public boolean canMove(int x0,int y0,int x, int y) {
+        if(Math.sqrt(Math.pow(Math.abs((x - x0)),2)) + Math.pow(Math.abs((y - y0)), 2) != Math.sqrt(2)){
+            return false;
+        }
         return true;
     }
 

@@ -57,12 +57,12 @@ public class Board {
     }
 
     public void movePiece(int x0,int y0,int x,int y){
-        if (squares[x0][y0] != null  && !(x0==x && y0 ==y)  && squares[x0][y0].canMove(x,y) || canReplace(x0, y0, x, y)){
+        if ( ( (squares[x][y]!=null && (squares[x0][y0].isWhite() != squares[x][y].isWhite()))
+                || squares[x][y] == null ) && squares[x0][y0].canMove(x0,y0,x,y)) {
             squares[x][y]=squares[x0][y0];
             squares[x0][y0]=null;
-            notifyListeners();
         }
-
+    notifyListeners();
     }
     public void addBoardListener(BoardListener bl) {
         boardlisteners.add(bl);
@@ -72,11 +72,5 @@ public class Board {
         for (BoardListener listener : boardlisteners) {
             listener.BoardChanged();
         }
-    }
-    public boolean canReplace(int x0, int y0, int x, int y){
-        if(squares[x][y] != null && (squares[x0][y0].isWhite()!=squares[y][x].isWhite()) ){
-            return true;
-        }
-       return false;
     }
 }

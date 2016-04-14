@@ -7,7 +7,7 @@ import javax.swing.*;
  */
 public interface Piece {
     boolean isWhite();
-    boolean canMove(int x,int y);
+    boolean canMove(int x0,int y0,int x,int y);
     String getDescription();
     ImageIcon getIcon();
 }

@@ -23,8 +23,27 @@ public class Rook implements Piece {
     }
 
     @Override
-    public boolean canMove(int x, int y) {
-        return true;
+    public boolean canMove(int x0,int y0,int x, int y) {
+        // movelist istället?
+        for (int i = x0; i<8 ; i++){
+            if (i == x && y0 == y){return true;}
+        }
+        for (int i = x0; i>0 ; i--) {
+            if (i == x && y0 == y) {
+                return true;
+            }
+        }
+        for (int i = y0; i<8 ; i++) {
+            if (i == y && x0 == x) {
+                return true;
+            }
+        }
+        for (int i = y0; i>0 ; i--) {
+            if (i == y && x0 == x) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
