@@ -1,7 +1,7 @@
 import Pieces.*;
 
-import java.util.ArrayList;
-import java.util.List;
+        import java.util.ArrayList;
+        import java.util.List;
 
 /**
  * Created by chris on 3/8/16.
@@ -62,7 +62,7 @@ public class Board {
             squares[x][y]=squares[x0][y0];
             squares[x0][y0]=null;
         }
-    notifyListeners();
+        notifyListeners();
     }
     public void addBoardListener(BoardListener bl) {
         boardlisteners.add(bl);
