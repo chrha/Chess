@@ -1,3 +1,5 @@
+package Chess;
+
 /**
  * Created by Ilian on 2016-04-05.
  */

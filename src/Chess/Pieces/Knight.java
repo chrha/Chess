@@ -1,6 +1,10 @@
-package Pieces;
+package Chess.Pieces;
+
+import Chess.Coordinates;
 
 import javax.swing.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Ilian on 2016-04-06.
@@ -12,9 +16,9 @@ public class Knight implements Piece{
     public Knight(boolean isWhite) {
         this.isWhite = isWhite;
         if (isWhite){
-            icon = new ImageIcon(getClass().getResource("/resources/Knight_White.png"));
+            icon = new ImageIcon(getClass().getResource("/Chess/resources/Knight_White.png"));
         }else{
-            icon = new ImageIcon(getClass().getResource("/resources/Knight_Black.png"));
+            icon = new ImageIcon(getClass().getResource("/Chess/resources/Knight_Black.png"));
         }
 
     }
@@ -25,9 +29,13 @@ public class Knight implements Piece{
     }
 
     @Override
-    public boolean canMove(int x0,int y0,int x, int y) {
-
-        return true;
+    public List MoveList(int x0, int y0, int x, int y) {
+        List dir = new ArrayList<Coordinates>();
+        double dis = Math.sqrt(Math.pow((x0-x),2) + Math.pow((y0-y),2));
+        if (dis == Math.sqrt(10)){
+            dir.add(new Coordinates(x,y));
+        }
+        return dir;
     }
 
     @Override

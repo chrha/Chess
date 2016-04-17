@@ -1,4 +1,4 @@
-import Pieces.Bishop;
+package Chess;
 
 import javax.swing.*;
 import java.awt.*;

@@ -1,6 +1,11 @@
-package Pieces;
+package Chess.Pieces;
+
+
+import Chess.Coordinates;
 
 import javax.swing.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Ilian on 2016-04-06.
@@ -12,9 +17,9 @@ public class Rook implements Piece {
     public Rook(boolean isWhite) {
         this.isWhite = isWhite;
         if (isWhite){
-            icon = new ImageIcon(getClass().getResource("/resources/Rook_White.png"));
+            icon = new ImageIcon(getClass().getResource("/Chess/resources/Rook_White.png"));
         }else{
-            icon = new ImageIcon(getClass().getResource("/resources/Rook_Black.png"));
+            icon = new ImageIcon(getClass().getResource("/Chess/resources/Rook_Black.png"));
         }
     }
     @Override
@@ -23,27 +28,36 @@ public class Rook implements Piece {
     }
 
     @Override
-    public boolean canMove(int x0,int y0,int x, int y) {
-        // movelist istället?
+    public List MoveList(int x0, int y0, int x, int y) {
+        List dir = new ArrayList<Coordinates>();
         for (int i = x0; i<8 ; i++){
-            if (i == x && y0 == y){return true;}
+            dir.add(new Coordinates(i,y));
+            if (i == x && y0 == y){
+                return dir;
+            }
         }
+        dir.clear();
         for (int i = x0; i>0 ; i--) {
+            dir.add(new Coordinates(i,y));
             if (i == x && y0 == y) {
-                return true;
+                return dir;
             }
         }
+        dir.clear();
         for (int i = y0; i<8 ; i++) {
+            dir.add(new Coordinates(x,i));
             if (i == y && x0 == x) {
-                return true;
+                return dir;
             }
         }
+        dir.clear();
         for (int i = y0; i>0 ; i--) {
+            dir.add(new Coordinates(x,i));
             if (i == y && x0 == x) {
-                return true;
+                return dir;
             }
         }
-        return false;
+        return new ArrayList<Coordinates>();
     }
 
     @Override
