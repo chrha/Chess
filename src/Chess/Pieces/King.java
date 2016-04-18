@@ -30,7 +30,7 @@ public class King implements Piece {
     @Override
     public List MoveList(int x0, int y0, int x, int y) {
         List dir = new ArrayList<Coordinates>();
-        if (x == (x0+1) && y == (y0+1)){
+        if (1 == Math.abs((x0-x)) || 1 == Math.abs((y0-y))){
             dir.add(new Coordinates(x,y));
         }
         return dir;

@@ -57,7 +57,7 @@ public class Rook implements Piece {
                 return dir;
             }
         }
-        return new ArrayList<Coordinates>();
+        return dir;
     }
 
     @Override

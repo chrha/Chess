@@ -69,11 +69,12 @@ public class Board {
     public void movePiece(int x0,int y0,int x,int y){
         List l =squares[x0][y0].MoveList(x0,y0,x,y);
         System.out.println(l.contains(new Coordinates(x,y)));
-        if ( ( (squares[x][y]!=null && (squares[x0][y0].isWhite() != squares[x][y].isWhite()))
-                        || squares[x][y] == null ) && l.contains(new Coordinates(x,y))){
+        System.out.println(l.toString());
+        if(!l.isEmpty() && l.contains(new Coordinates(x,y))){
             squares[x][y]=squares[x0][y0];
             squares[x0][y0]=null;
         }
+        notifyListeners();
     }
     public void addBoardListener(BoardListener bl) {
         boardlisteners.add(bl);

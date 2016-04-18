@@ -12,9 +12,10 @@ import java.util.List;
 public class Pawn implements Piece {
     private boolean isWhite;
     private ImageIcon icon;
-
+    private boolean moved;
     public Pawn(boolean isWhite) {
         this.isWhite = isWhite;
+        this.moved=false;
         if (isWhite){
             icon = new ImageIcon(getClass().getResource("/Chess/resources/Pawn_White.png"));
         }else{
@@ -32,7 +33,27 @@ public class Pawn implements Piece {
     public List MoveList(int x0, int y0, int x, int y) {
         List dir = new ArrayList<Coordinates>();
 
-        return new ArrayList<Coordinates>();
+        if(isWhite()){
+            if(!moved){
+                if( y==y0+1 || y==y0+2 ){
+                    dir.add(new Coordinates(x,y));
+                }
+                this.moved = true;
+            }else if(y==y0+1){
+                dir.add(new Coordinates(x,y));
+            }
+        }else {
+            if(!moved){
+                if(y==y0-1 || y==y0-2 ){
+                    dir.add(new Coordinates(x,y));
+                }
+                this.moved = true;
+            }else if(y==y0-1){
+                dir.add(new Coordinates(x,y));
+            }
+
+        }
+        return dir;
     }
 
     @Override

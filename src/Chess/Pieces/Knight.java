@@ -32,7 +32,7 @@ public class Knight implements Piece{
     public List MoveList(int x0, int y0, int x, int y) {
         List dir = new ArrayList<Coordinates>();
         double dis = Math.sqrt(Math.pow((x0-x),2) + Math.pow((y0-y),2));
-        if (dis == Math.sqrt(10)){
+        if (dis == Math.sqrt(5)){
             dir.add(new Coordinates(x,y));
         }
         return dir;
