@@ -35,24 +35,28 @@ public class Pawn implements Piece {
 
         if(isWhite()){
             if(!moved){
-                if( y==y0+1 || y==y0+2 ){
-                    dir.add(new Coordinates(x,y));
-                }
-                this.moved = true;
-            }else if(y==y0+1){
-                dir.add(new Coordinates(x,y));
+                dir.add(new Coordinates(x0,y0+1));
+                dir.add(new Coordinates(x0,y0+2));
+                dir.add(new Coordinates(x0+1,y0+1));
+                dir.add(new Coordinates(x0-1,y0+1));
+            }else{
+                dir.add(new Coordinates(x0+1,y0+1));
+                dir.add(new Coordinates(x0-1,y0+1));
+                dir.add(new Coordinates(x0,y0+1));
             }
         }else {
-            if(!moved){
-                if(y==y0-1 || y==y0-2 ){
-                    dir.add(new Coordinates(x,y));
-                }
-                this.moved = true;
-            }else if(y==y0-1){
-                dir.add(new Coordinates(x,y));
+            if (!moved) {
+                dir.add(new Coordinates(x0, y0 - 1));
+                dir.add(new Coordinates(x0, y0 - 2));
+                dir.add(new Coordinates(x0 + 1, y0 - 1));
+                dir.add(new Coordinates(x0 - 1, y0 - 1));
+            } else{
+                dir.add(new Coordinates(x0 + 1, y0 - 1));
+                dir.add(new Coordinates(x0 - 1, y0 - 1));
+                dir.add(new Coordinates(x0, y0 - 1));
             }
-
         }
+        this.moved = true;
         return dir;
     }
 

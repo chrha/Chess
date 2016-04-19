@@ -67,15 +67,26 @@ public class Board {
         notifyListeners();
     }*/
     public void movePiece(int x0,int y0,int x,int y){
-        List l =squares[x0][y0].MoveList(x0,y0,x,y);
-        System.out.println(l.contains(new Coordinates(x,y)));
-        System.out.println(l.toString());
-        if(!l.isEmpty() && l.contains(new Coordinates(x,y))){
+        if((((squares[x][y]!=null && (squares[x0][y0].isWhite() != squares[x][y].isWhite()))
+        || squares[x][y] == null ) && squares[x0][y0].MoveList(x0,y0,x,y).contains(new Coordinates(x,y))) && Obstacle(squares[x0][y0].MoveList(x0,y0,x,y))){
             squares[x][y]=squares[x0][y0];
             squares[x0][y0]=null;
         }
+
         notifyListeners();
     }
+
+
+    public boolean Obstacle(List<Coordinates> l){
+        System.out.println(l.toString());
+        for (Coordinates c:l){
+            if (squares[c.getX()][c.getY()] != null ){
+                return false;
+            }
+        }
+        return true;
+    }
+
     public void addBoardListener(BoardListener bl) {
         boardlisteners.add(bl);
     }

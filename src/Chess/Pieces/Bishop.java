@@ -28,31 +28,35 @@ public class Bishop implements Piece{
     @Override
     public List MoveList(int x0, int y0, int x, int y) {
         List dir = new ArrayList<Coordinates>();
-        for (int i = x0,z = y0; i < 8 && z<8; i++,z++) {
+        for (int i = x0+1,z = y0+1; i < 8 && z<8; i++,z++) {
                 dir.add(new Coordinates(i, z));
                 if (i == x && z == y) {
                     return dir;
                 }
             }
+        dir.clear();
 
-        for (int i = x0,z = y0; i < 8 && z>0; i++,z--) {
+        for (int i = x0+1,z = y0-1; i < 8 && z>0; i++,z--) {
                 dir.add(new Coordinates(i, z));
                 if (i == x && z == y) {
                     return dir;
                 }
             }
-        for (int i = x0,z = y0; i>0 && z<8 ; i--,z++) {
+        dir.clear();
+        for (int i = x0-1,z = y0+1; i>0 && z<8 ; i--,z++) {
                 dir.add(new Coordinates(i, z));
                 if (i == x && z == y) {
                     return dir;
                 }
             }
-        for (int i = x0,z = y0; i > 0 && z>0; i--,z--) {
+        dir.clear();
+        for (int i = x0-1,z = y0-1; i > 0 && z>0; i--,z--) {
             dir.add(new Coordinates(i, z));
             if (i == x && z == y) {
                 return dir;
             }
         }
+        dir.clear();
         return dir;
     }
 
