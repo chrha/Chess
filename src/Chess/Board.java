@@ -21,9 +21,9 @@ public class Board {
         for (int y=0;y<SIZE;y++){
             for (int x = 0;x<SIZE;x++){
                 if ( y== 1){
-                    this.squares[x][y] = new Pawn(true);
+                    this.squares[x][y] = new Pawn(true,false);
                 }else if (y == SIZE-2){
-                    this.squares[x][y] = new Pawn(false);
+                    this.squares[x][y] = new Pawn(false,false);
                 }else if ((x == 0 && y==0) || (x==SIZE-1 && y == 0)){
                     this.squares[x][y]= new Rook(true);
                 }else if((x==0 && y==SIZE-1) || (x==SIZE-1 && y==SIZE-1)){
@@ -67,10 +67,16 @@ public class Board {
         notifyListeners();
     }*/
     public void movePiece(int x0,int y0,int x,int y){
-        if((((squares[x][y]!=null && (squares[x0][y0].isWhite() != squares[x][y].isWhite()))
-        || squares[x][y] == null ) && squares[x0][y0].MoveList(x0,y0,x,y).contains(new Coordinates(x,y))) && Obstacle(squares[x0][y0].MoveList(x0,y0,x,y))){
-            squares[x][y]=squares[x0][y0];
-            squares[x0][y0]=null;
+        if(((squares[x][y]!=null && squares[x0][y0].isWhite() != squares[x][y].isWhite())
+        || squares[x][y] == null ) && squares[x0][y0].MoveList(x0,y0,x,y).contains(new Coordinates(x,y))){
+            if (squares[x0][y0] instanceof Pawn){
+               movePawn(x0, y0, x, y);
+            }
+            else if( Obstacle(squares[x0][y0].MoveList(x0,y0,x,y))){
+                squares[x][y]=squares[x0][y0];
+                squares[x0][y0]=null;
+            }
+
         }
 
         notifyListeners();
@@ -85,6 +91,24 @@ public class Board {
             }
         }
         return true;
+    }
+    public void movePawn(int x0,int y0,int x,int y){
+        List<Coordinates> l = squares[x0][y0].MoveList(x0, y0, x, y);
+        for (Coordinates c: l){
+            System.out.println(l.toString());
+            if (c.getX() == x && c.getY() == y){
+                if (squares[x][y]!=null && (squares[x0][y0].isWhite() != squares[x][y].isWhite() && x0 != x)){
+                    squares[x][y]=squares[x0][y0];
+                    squares[x0][y0]=null;
+                    squares[x][y].setMoved(true);
+                }if(squares[c.getX()][c.getY()]==null && x0 == x){
+                    squares[x][y]=squares[x0][y0];
+                    squares[x0][y0]=null;
+                    squares[x][y].setMoved(true);
+                }
+            }
+        }
+        notifyListeners();
     }
 
     public void addBoardListener(BoardListener bl) {

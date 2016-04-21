@@ -47,4 +47,5 @@ public class King implements Piece {
     public ImageIcon getIcon() {
         return icon;
     }
+    public void setMoved(boolean moved){}
 }

@@ -49,4 +49,5 @@ public class Knight implements Piece{
     public ImageIcon getIcon() {
         return icon;
     }
+    public void setMoved(boolean moved){}
 }
