@@ -38,21 +38,21 @@ public class Queen implements Piece{
         }
         dir.clear();
 
-        for (int i = x0+1,z = y0-1; i < 8 && z>0; i++,z--) {
+        for (int i = x0+1,z = y0-1; i < 8 && z>=0; i++,z--) {
             dir.add(new Coordinates(i, z));
             if (i == x && z == y) {
                 return dir;
             }
         }
         dir.clear();
-        for (int i = x0-1,z = y0+1; i>0 && z<8 ; i--,z++) {
+        for (int i = x0-1,z = y0+1; i>=0 && z<8 ; i--,z++) {
             dir.add(new Coordinates(i, z));
             if (i == x && z == y) {
                 return dir;
             }
         }
         dir.clear();
-        for (int i = x0-1,z = y0-1; i > 0 && z>0; i--,z--) {
+        for (int i = x0-1,z = y0-1; i >= 0 && z>=0; i--,z--) {
             dir.add(new Coordinates(i, z));
             if (i == x && z == y) {
                 return dir;
@@ -67,7 +67,7 @@ public class Queen implements Piece{
         }
 
         dir.clear();
-        for (int i = x0-1; i>0 ; i--) {
+        for (int i = x0-1; i>=0 ; i--) {
             dir.add(new Coordinates(i,y));
             if (i == x && y0 == y) {
                 return dir;
@@ -81,7 +81,7 @@ public class Queen implements Piece{
             }
         }
         dir.clear();
-        for (int i = y0-1; i>0 ; i--) {
+        for (int i = y0-1; i>=0 ; i--) {
             dir.add(new Coordinates(x,i));
             if (i == y && x0 == x) {
                 return dir;

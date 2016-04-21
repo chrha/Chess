@@ -8,42 +8,42 @@ import Chess.Pieces.*;
 /**
  * Created by chris on 3/8/16.
  */
-public class Board {
-    public final static int SIZE=8;
+public class Board
+{
+    public final static int SIZE = 8;
     private Piece squares[][];
     private List<BoardListener> boardlisteners;
-
 
 
     public Board() {
         this.squares = new Piece[SIZE][SIZE];
         this.boardlisteners = new ArrayList<>();
-        for (int y=0;y<SIZE;y++){
-            for (int x = 0;x<SIZE;x++){
-                if ( y== 1){
-                    this.squares[x][y] = new Pawn(true,false);
-                }else if (y == SIZE-2){
-                    this.squares[x][y] = new Pawn(false,false);
-                }else if ((x == 0 && y==0) || (x==SIZE-1 && y == 0)){
-                    this.squares[x][y]= new Rook(true);
-                }else if((x==0 && y==SIZE-1) || (x==SIZE-1 && y==SIZE-1)){
-                    this.squares[x][y]= new Rook(false);
-                }else if((x==1 && y==0) || (x==SIZE-2 && y==0)){
-                    this.squares[x][y]= new Knight(true);
-                }else if((x==1 && y==SIZE-1) || (x==SIZE-2 && y==SIZE-1)){
-                    this.squares[x][y]=  new Knight(false);
-                }else if((x==2 && y==0) || (x==SIZE-3 && y==0)){
-                    this.squares[x][y]=new Bishop(true);
-                }else if((x==2 && y==SIZE-1) || (x==SIZE-3 && y== SIZE-1)){
-                    this.squares[x][y]= new Bishop(false);
-                }else if((x==3 && y==0)){
-                    this.squares[x][y]=new King(true);
-                }else if((x==3 && y==SIZE-1)){
-                    this.squares[x][y]=new King(false);
-                }else if(x==4 && y==0){
-                    this.squares[x][y]=new Queen(true);
-                }else if(x==4 && y==SIZE-1){
-                    this.squares[x][y]=new Queen(false);
+        for (int y = 0; y < SIZE; y++) {
+            for (int x = 0; x < SIZE; x++) {
+                if (y == 1) {
+                    this.squares[x][y] = new Pawn(true, false);
+                } else if (y == SIZE - 2) {
+                    this.squares[x][y] = new Pawn(false, false);
+                } else if ((x == 0 && y == 0) || (x == SIZE - 1 && y == 0)) {
+                    this.squares[x][y] = new Rook(true, false);
+                } else if ((x == 0 && y == SIZE - 1) || (x == SIZE - 1 && y == SIZE - 1)) {
+                    this.squares[x][y] = new Rook(false, false);
+                } else if ((x == 1 && y == 0) || (x == SIZE - 2 && y == 0)) {
+                    this.squares[x][y] = new Knight(true);
+                } else if ((x == 1 && y == SIZE - 1) || (x == SIZE - 2 && y == SIZE - 1)) {
+                    this.squares[x][y] = new Knight(false);
+                } else if ((x == 2 && y == 0) || (x == SIZE - 3 && y == 0)) {
+                    this.squares[x][y] = new Bishop(true);
+                } else if ((x == 2 && y == SIZE - 1) || (x == SIZE - 3 && y == SIZE - 1)) {
+                    this.squares[x][y] = new Bishop(false);
+                } else if ((x == 3 && y == 0)) {
+                    this.squares[x][y] = new King(true, false);
+                } else if ((x == 3 && y == SIZE - 1)) {
+                    this.squares[x][y] = new King(false, false);
+                } else if (x == 4 && y == 0) {
+                    this.squares[x][y] = new Queen(true);
+                } else if (x == 4 && y == SIZE - 1) {
+                    this.squares[x][y] = new Queen(false);
                 }
 
             }
@@ -54,27 +54,24 @@ public class Board {
         return squares;
     }
 
-    public Piece getPiece(int x, int y){
+    public Piece getPiece(int x, int y) {
         return this.squares[x][y];
     }
 
-    /**public void movePiece(int x0,int y0,int x,int y){
-        if ( ( (squares[x][y]!=null && (squares[x0][y0].isWhite() != squares[x][y].isWhite()))
-                || squares[x][y] == null ) && squares[x0][y0].canMove(x0,y0,x,y)) {
-            squares[x][y]=squares[x0][y0];
-            squares[x0][y0]=null;
-        }
-        notifyListeners();
-    }*/
-    public void movePiece(int x0,int y0,int x,int y){
-        if(((squares[x][y]!=null && squares[x0][y0].isWhite() != squares[x][y].isWhite())
-        || squares[x][y] == null ) && squares[x0][y0].MoveList(x0,y0,x,y).contains(new Coordinates(x,y))){
-            if (squares[x0][y0] instanceof Pawn){
-               movePawn(x0, y0, x, y);
-            }
-            else if( Obstacle(squares[x0][y0].MoveList(x0,y0,x,y))){
-                squares[x][y]=squares[x0][y0];
-                squares[x0][y0]=null;
+    /**
+     * public void movePiece(int x0,int y0,int x,int y){ if ( ( (squares[x][y]!=null && (squares[x0][y0].isWhite() !=
+     * squares[x][y].isWhite())) || squares[x][y] == null ) && squares[x0][y0].canMove(x0,y0,x,y)) {
+     * squares[x][y]=squares[x0][y0]; squares[x0][y0]=null; } notifyListeners(); }
+     */
+    public void movePiece(int x0, int y0, int x, int y) {
+        if (squares[x0][y0] != null &&
+            ((squares[x][y] != null && squares[x0][y0].isWhite() != squares[x][y].isWhite()) || squares[x][y] == null) &&
+            squares[x0][y0].MoveList(x0, y0, x, y).contains(new Coordinates(x, y))) {
+            if (squares[x0][y0] instanceof Pawn) {
+                movePawn(x0, y0, x, y);
+            } else if (Obstacle(squares[x0][y0].MoveList(x0, y0, x, y))) {
+                squares[x][y] = squares[x0][y0];
+                squares[x0][y0] = null;
             }
 
         }
@@ -83,30 +80,51 @@ public class Board {
     }
 
 
-    public boolean Obstacle(List<Coordinates> l){
+    public boolean Obstacle(List<Coordinates> l) {
         System.out.println(l.toString());
-        for (Coordinates c:l){
-            if (squares[c.getX()][c.getY()] != null ){
+        for (Coordinates c : l.subList(0,l.size()-1)) {
+            if (squares[c.getX()][c.getY()] != null) {
                 return false;
             }
         }
         return true;
     }
-    public void movePawn(int x0,int y0,int x,int y){
+
+    public void movePawn(int x0, int y0, int x, int y) {
         List<Coordinates> l = squares[x0][y0].MoveList(x0, y0, x, y);
-        for (Coordinates c: l){
+        for (Coordinates c : l) {
             System.out.println(l.toString());
-            if (c.getX() == x && c.getY() == y){
-                if (squares[x][y]!=null && (squares[x0][y0].isWhite() != squares[x][y].isWhite() && x0 != x)){
-                    squares[x][y]=squares[x0][y0];
-                    squares[x0][y0]=null;
-                    squares[x][y].setMoved(true);
-                }if(squares[c.getX()][c.getY()]==null && x0 == x){
-                    squares[x][y]=squares[x0][y0];
-                    squares[x0][y0]=null;
+            if (c.getX() == x && c.getY() == y) {
+                if (squares[x][y] != null && (squares[x0][y0].isWhite() != squares[x][y].isWhite() && x0 != x)) {
+
+                    squares[x][y] = squares[x0][y0];
+                    squares[x0][y0] = null;
                     squares[x][y].setMoved(true);
                 }
+                if ((squares[c.getX()][c.getY()] == null && x0 == x)) {
+                    if (y0 == (y-2)) {
+                        if (squares[c.getX()][c.getY() - 1] == null) {
+                            squares[x][y] = squares[x0][y0];
+                            squares[x0][y0] = null;
+                            squares[x][y].setMoved(true);
+                        }
+                    } else if (y0 == (y+2)){
+                        if (squares[c.getX()][c.getY() + 1] == null) {
+                            squares[x][y] = squares[x0][y0];
+                            squares[x0][y0] = null;
+                            squares[x][y].setMoved(true);
+
+                        }
+
+                    }else{
+                        squares[x][y] = squares[x0][y0];
+                        squares[x0][y0] = null;
+                        squares[x][y].setMoved(true);
+                    }
+
+                }
             }
+
         }
         notifyListeners();
     }

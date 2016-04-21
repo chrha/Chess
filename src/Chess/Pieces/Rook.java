@@ -10,11 +10,13 @@ import java.util.List;
 /**
  * Created by Ilian on 2016-04-06.
  */
-public class Rook implements Piece {
+public class Rook extends AbstractSpecialPiece implements Piece {
     private boolean isWhite;
     private ImageIcon icon;
+    private boolean moved;
 
-    public Rook(boolean isWhite) {
+    public Rook(boolean isWhite,boolean moved) {
+        super(moved);
         this.isWhite = isWhite;
         if (isWhite){
             icon = new ImageIcon(getClass().getResource("/Chess/resources/Rook_White.png"));
@@ -37,7 +39,7 @@ public class Rook implements Piece {
             }
         }
         dir.clear();
-        for (int i = x0-1; i>0 ; i--) {
+        for (int i = x0-1; i>=0 ; i--) {
             dir.add(new Coordinates(i,y));
             if (i == x && y0 == y) {
                 return dir;
@@ -51,7 +53,7 @@ public class Rook implements Piece {
             }
         }
         dir.clear();
-        for (int i = y0-1; i>0 ; i--) {
+        for (int i = y0-1; i>=0 ; i--) {
             dir.add(new Coordinates(x,i));
             if (i == y && x0 == x) {
                 return dir;
@@ -72,5 +74,4 @@ public class Rook implements Piece {
     public ImageIcon getIcon() {
         return icon;
     }
-    public void setMoved(boolean moved){}
 }
