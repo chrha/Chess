@@ -40,11 +40,7 @@ public class Knight implements Piece{
 
     @Override
     public String getDescription() {
-        if (isWhite){
-            return "Knight"+"White";
-        }else{
-            return "Knight"+"Black";
-        }
+        return "Knight";
     }
     public ImageIcon getIcon() {
         return icon;

@@ -88,12 +88,7 @@ public class Pawn extends AbstractSpecialPiece implements Piece {
 
     @Override
     public String getDescription() {
-        if (isWhite){
-            return "Pawn"+"White";
-        }else{
-
-            return "Pawn"+"Black";
-        }
+        return "Pawn";
     }
     public ImageIcon getIcon() {
         return icon;

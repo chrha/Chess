@@ -40,11 +40,7 @@ public class King extends AbstractSpecialPiece implements Piece {
 
     @Override
     public String getDescription() {
-        if (isWhite){
-            return "King"+"White";
-        }else{
-            return "King"+"Black";
-        }
+        return "King";
     }
     public ImageIcon getIcon() {
         return icon;

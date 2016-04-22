@@ -92,11 +92,7 @@ public class Queen implements Piece{
     }
     @Override
     public String getDescription() {
-        if (isWhite){
-            return "Queen"+"White";
-        }else{
-            return "Queen"+"Black";
-        }
+        return "Queen";
     }
     public ImageIcon getIcon() {
         return icon;

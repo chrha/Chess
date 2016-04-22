@@ -65,11 +65,7 @@ public class Rook extends AbstractSpecialPiece implements Piece {
 
     @Override
     public String getDescription() {
-        if (isWhite){
-            return "Pawn"+"White";
-        }else{
-            return "Pawn"+"Black";
-        }
+        return "Rook";
     }
     public ImageIcon getIcon() {
         return icon;

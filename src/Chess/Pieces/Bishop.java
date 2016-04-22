@@ -61,11 +61,7 @@ public class Bishop implements Piece{
 
     @Override
     public String getDescription() {
-        if (isWhite){
-            return "Bishop"+"White";
-        }else{
-            return "Bishop"+"Black";
-        }
+        return "Bishop";
     }
     public ImageIcon getIcon() {
         return icon;
