@@ -67,21 +67,26 @@ public class Board
                 replace(x0,y0,x,y);
             }
         }
-        System.out.println(checkMate(!turn));
+        System.out.println(isKingSafe(!turn));
         notifyListeners();
     }
 
+    public boolean Path(List<Coordinates> l) {
+           for (Coordinates c : l) {
+               if (squares[c.getX()][c.getY()] != null) {
+                   return true;
+               }
+           }
 
-
+           return false;
+       }
     public boolean Obstacle(List<Coordinates> l) {
-        if (l.size()-1>=0){
-            for (Coordinates c : l.subList(0,l.size()-1)) {
-                        if (squares[c.getX()][c.getY()] != null) {
-                            return false;
-                        }
+        for (Coordinates c : l.subList(0,l.size()-1)) {
+            if (squares[c.getX()][c.getY()] != null) {
+                return false;
+            }
         }
 
-        }
         return true;
     }
 
@@ -130,8 +135,13 @@ public class Board
                         for (int i = 0; i<8;i++){
                             for (int j = 0; j<8;j++){
                                 if (squares[j][i]!=null && squares[j][i].isWhite()!= isWhite){
-                                    if (squares[j][i].MoveList(j,i,x,y).contains(new Coordinates(x,y))){
-                                        return !Obstacle(squares[j][i].MoveList(j,i,x,y));
+                                    if (squares[j][i].getDescription() == "Pawn"){
+                                        if (j != x && squares[j][i].MoveList(j,i,x,y).contains(new Coordinates(x,y))){
+                                            return false;
+                                        }
+                                    }else if (squares[j][i].MoveList(j,i,x,y).contains(new Coordinates(x,y))){
+
+                                        return Path(squares[j][i].MoveList(j,i,x,y));
                                     }
                                 }
                             }
@@ -155,6 +165,7 @@ public class Board
             this.turn = !turn;
         }
         this.turn = !turn;
+        notifyListeners();
     }
     public boolean movePossible(int x0,int y0,int x,int y){
         return (squares[x0][y0] != null && turn == squares[x0][y0].isWhite()) &&
@@ -190,7 +201,7 @@ public class Board
             }
             squares[c.getX()][c.getY()] = k;
         }
-        return true;
+        return false;
     }
 
 }
