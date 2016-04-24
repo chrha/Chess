@@ -1,5 +1,7 @@
 package Chess.Pieces;
 
+import Chess.Coordinates;
+
 import javax.swing.*;
 import java.util.List;
 
@@ -9,7 +11,7 @@ import java.util.List;
 public interface Piece {
     void setMoved(boolean moved);
     boolean isWhite();
-    List MoveList(int x0, int y0, int x, int y);
+    List MoveList(Coordinates from,Coordinates to);
     String getDescription();
     ImageIcon getIcon();
 }

@@ -37,8 +37,8 @@ public class ChessComponent extends JComponent implements BoardListener {
 
                     }
                 }
-                if (board.getPiece(x,y) != null){
-                    board.getPiece(x,y).getIcon().paintIcon(this,g2d,x*BLOCK,y*BLOCK);
+                if (board.getPiece(new Coordinates(x,y)) != null){
+                    board.getPiece(new Coordinates(x,y)).getIcon().paintIcon(this,g2d,x*BLOCK,y*BLOCK);
                 }
 
 

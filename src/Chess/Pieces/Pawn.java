@@ -30,61 +30,55 @@ public class Pawn extends AbstractSpecialPiece implements Piece {
     }
 
     @Override
-    public List MoveList(int x0, int y0, int x, int y) {
+    public List MoveList(Coordinates from,Coordinates to) {
         List dir = new ArrayList<Coordinates>();
-       /** if (isWhite()){
-            if (!this.moved && ((x == x0+2 || x == x0+1) && (y == y0+1  || y == )
-        }*/
 
         if(isWhite()){
             if(!moved){
-                if (((x0+1)<=7)){
-                    dir.add(new Coordinates(x0+1,y0+1));
-                }if (((x0-1)>=0)){
-                    dir.add(new Coordinates(x0-1,y0+1));
+                if (((from.getX()+1)<=7)){
+                    dir.add(new Coordinates(from.getX()+1,from.getY()+1));
+                }if (((from.getX()-1)>=0)){
+                    dir.add(new Coordinates(from.getX()-1,from.getY()+1));
                 }
-                dir.add(new Coordinates(x0,y0+1));
-                dir.add(new Coordinates(x0,y0+2));
+                dir.add(new Coordinates(from.getX(),from.getY()+1));
+                dir.add(new Coordinates(from.getX(),from.getY()+2));
 
 
 
 
             }else{
-                if (((x0+1)<=7)){
-                    dir.add(new Coordinates(x0+1,y0+1));
-                }if (((x0-1)>=0)){
-                    dir.add(new Coordinates(x0-1,y0+1));
+                if (((from.getX()+1)<=7)){
+                    dir.add(new Coordinates(from.getX()+1,from.getY()+1));
+                }if (((from.getX()-1)>=0)){
+                    dir.add(new Coordinates(from.getX()-1,from.getY()+1));
                 }
-                dir.add(new Coordinates(x0,y0+1));
+                dir.add(new Coordinates(from.getX(),from.getY()+1));
             }
         }else {
             if (!moved) {
-                if (((x0 + 1) <= 7)) {
-                    dir.add(new Coordinates(x0 + 1, y0 - 1));
+                if (((from.getX() + 1) <= 7)) {
+                    dir.add(new Coordinates(from.getX() + 1, from.getY() - 1));
                 }
-                if (((x0 - 1) >= 0)) {
-                    dir.add(new Coordinates(x0 - 1, y0 - 1));
+                if (((from.getX() - 1) >= 0)) {
+                    dir.add(new Coordinates(from.getX() - 1, from.getY() - 1));
                 }
-                dir.add(new Coordinates(x0, y0 - 1));
-                dir.add(new Coordinates(x0, y0 - 2));
+                dir.add(new Coordinates(from.getX(), from.getY() - 1));
+                dir.add(new Coordinates(from.getX(), from.getY() - 2));
 
 
             } else {
-                if (((x0 + 1) <= 7)) {
-                    dir.add(new Coordinates(x0 + 1, y0 - 1));
+                if (((from.getX() + 1) <= 7)) {
+                    dir.add(new Coordinates(from.getX() + 1, from.getY() - 1));
                 }
-                if (((x0 - 1) >= 0)) {
-                    dir.add(new Coordinates(x0 - 1, y0 - 1));
+                if (((from.getX() - 1) >= 0)) {
+                    dir.add(new Coordinates(from.getX() - 1, from.getY() - 1));
                 }
-                dir.add(new Coordinates(x0, y0 - 1));
+                dir.add(new Coordinates(from.getX(), from.getY() - 1));
             }
         }
         return dir;
     }
 
-    /**public void setMoved(boolean moved) {
-        this.moved = moved;
-    }*/
 
     @Override
     public String getDescription() {

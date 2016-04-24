@@ -29,11 +29,11 @@ public class Knight implements Piece{
     }
 
     @Override
-    public List MoveList(int x0, int y0, int x, int y) {
+    public List MoveList(Coordinates from, Coordinates to) {
         List dir = new ArrayList<Coordinates>();
-        double dis = Math.sqrt(Math.pow((x0-x),2) + Math.pow((y0-y),2));
+        double dis = Math.sqrt(Math.pow((from.getX()-to.getX()),2) + Math.pow((from.getY()-to.getY()),2));
         if (dis == Math.sqrt(5)){
-            dir.add(new Coordinates(x,y));
+            dir.add(new Coordinates(to.getX(),to.getY()));
         }
         return dir;
     }

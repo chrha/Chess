@@ -10,11 +10,11 @@ public class boardtotext {
             for (int x = 0; x < Board.SIZE; x++) {
                 String p;
                 String u;
-                if (board.getPiece(x,y) == null){
+                if (board.getPiece(new Coordinates(x,y)) == null){
                     p = null;
                     u = null;
                 }else{
-                    p = board.getPiece(x, y).getDescription();
+                    p = board.getPiece(new Coordinates(x,y)).getDescription();
                     u= p.substring(0, Math.min(p.length(), 4));
                 }
                 if (p == null) {

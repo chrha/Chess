@@ -28,62 +28,62 @@ public class Queen implements Piece{
     }
 
     @Override
-    public List MoveList(int x0, int y0, int x, int y) {
+    public List MoveList(Coordinates from,Coordinates to) {
         List dir = new ArrayList<Coordinates>();
-        for (int i = x0+1,z = y0+1; i < 8 && z<8; i++,z++) {
+        for (int i = from.getX()+1,z = from.getY()+1; i < 8 && z<8; i++,z++) {
             dir.add(new Coordinates(i, z));
-            if (i == x && z == y) {
+            if (i == to.getX() && z == to.getY()) {
                 return dir;
             }
         }
         dir.clear();
 
-        for (int i = x0+1,z = y0-1; i < 8 && z>=0; i++,z--) {
+        for (int i = from.getX()+1,z = from.getY()-1; i < 8 && z>=0; i++,z--) {
             dir.add(new Coordinates(i, z));
-            if (i == x && z == y) {
+            if (i == to.getX() && z == to.getY()) {
                 return dir;
             }
         }
         dir.clear();
-        for (int i = x0-1,z = y0+1; i>=0 && z<8 ; i--,z++) {
+        for (int i = from.getX()-1,z = from.getY()+1; i>=0 && z<8 ; i--,z++) {
             dir.add(new Coordinates(i, z));
-            if (i == x && z == y) {
+            if (i == to.getX() && z == to.getY()) {
                 return dir;
             }
         }
         dir.clear();
-        for (int i = x0-1,z = y0-1; i >= 0 && z>=0; i--,z--) {
+        for (int i = from.getX()-1,z = from.getY()-1; i >= 0 && z>=0; i--,z--) {
             dir.add(new Coordinates(i, z));
-            if (i == x && z == y) {
+            if (i == to.getX() && z == to.getY()) {
                 return dir;
             }
         }
         dir.clear();
-        for (int i = x0+1; i<8 ; i++){
-            dir.add(new Coordinates(i,y));
-            if (i == x && y0 == y){
+        for (int i = from.getX()+1; i<8 ; i++){
+            dir.add(new Coordinates(i,to.getY()));
+            if (i == to.getX() && from.getY() == to.getY()){
                 return dir;
             }
         }
 
         dir.clear();
-        for (int i = x0-1; i>=0 ; i--) {
-            dir.add(new Coordinates(i,y));
-            if (i == x && y0 == y) {
+        for (int i = from.getX()-1; i>=0 ; i--) {
+            dir.add(new Coordinates(i,to.getY()));
+            if (i == to.getX() && from.getY() == to.getY()) {
                 return dir;
             }
         }
         dir.clear();
-        for (int i = y0+1; i<8 ; i++) {
-            dir.add(new Coordinates(x,i));
-            if (i == y && x0 == x) {
+        for (int i = from.getY()+1; i<8 ; i++) {
+            dir.add(new Coordinates(to.getX(),i));
+            if (i == to.getY() && from.getX() == to.getX()) {
                 return dir;
             }
         }
         dir.clear();
-        for (int i = y0-1; i>=0 ; i--) {
-            dir.add(new Coordinates(x,i));
-            if (i == y && x0 == x) {
+        for (int i = from.getY()-1; i>=0 ; i--) {
+            dir.add(new Coordinates(to.getX(),i));
+            if (i == to.getY() && from.getX() == to.getX()) {
                 return dir;
             }
         }

@@ -40,7 +40,7 @@ public class ChessFrame extends JFrame implements MouseListener {
         int x=(int) xd;
         int y=(int) yd;
         if ((currentX != x || currentY != y) && x>=0 && x<8 && y>=0 && y<8){
-            board.movePiece(currentX,currentY,x,y);
+            board.movePiece(new Coordinates(currentX,currentY),new Coordinates(x,y));
         }
     }
 

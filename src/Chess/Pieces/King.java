@@ -30,10 +30,10 @@ public class King extends AbstractSpecialPiece implements Piece {
     }
 
     @Override
-    public List MoveList(int x0, int y0, int x, int y) {
+    public List MoveList(Coordinates from,Coordinates to) {
         List dir = new ArrayList<Coordinates>();
-        if (1 == Math.abs((x0-x)) || 1 == Math.abs((y0-y))){
-            dir.add(new Coordinates(x,y));
+        if (Math.sqrt(Math.pow(from.getX()-to.getX(),2)+Math.pow(from.getY()-to.getY(),2))==1 || Math.sqrt(Math.pow(from.getX()-to.getX(),2)+Math.pow(from.getY()-to.getY(),2))==Math.sqrt(2)){
+            dir.add(new Coordinates(to.getX(),to.getY()));
         }
         return dir;
     }
