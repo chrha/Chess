@@ -10,6 +10,7 @@ import java.util.List;
  */
 public interface Piece {
     void setMoved(boolean moved);
+    boolean isMoved();
     boolean isWhite();
     List MoveList(Coordinates from,Coordinates to);
     String getDescription();

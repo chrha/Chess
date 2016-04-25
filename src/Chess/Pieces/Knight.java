@@ -46,4 +46,5 @@ public class Knight implements Piece{
         return icon;
     }
     public void setMoved(boolean moved){}
+    public boolean isMoved(){return false;}
 }

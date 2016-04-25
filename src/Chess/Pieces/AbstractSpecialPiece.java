@@ -10,4 +10,8 @@ public abstract class AbstractSpecialPiece {
     public void setMoved(boolean moved) {
 	this.moved = moved;
     }
+
+    public boolean isMoved() {
+	return moved;
+    }
 }

@@ -66,19 +66,19 @@ public class Board
             } else if (Obstacle(squares[from.getX()][from.getY()].MoveList(from,to))) {
                 replace(from,to);
             }
+            isKingSafe(turn);
         }
-        System.out.println(checkMate(turn));
         notifyListeners();
     }
 
-    public boolean Path(List<Coordinates> l) {
+    public boolean inPath(List<Coordinates> l) {
            for (Coordinates c : l) {
                if (squares[c.getX()][c.getY()] != null) {
-                   return true;
+                   return false;
                }
            }
 
-           return false;
+           return true;
        }
     public boolean Obstacle(List<Coordinates> l) {
         for (Coordinates c : l.subList(0,l.size()-1)) {
@@ -92,7 +92,6 @@ public class Board
 
     public void movePawn(Coordinates from,Coordinates to) {
         List<Coordinates> l = squares[from.getX()][from.getY()].MoveList(from,to);
-        Piece k=squares[to.getX()][to.getY()];
         for (Coordinates c : l) {
             if (c.getX() == to.getX() && c.getY() == to.getY()) {
                 if (squares[to.getX()][to.getY()] != null && (squares[from.getX()][from.getY()].isWhite() != squares[to.getX()][to.getY()].isWhite() && from.getX() != to.getX())) {
@@ -100,14 +99,14 @@ public class Board
                 }
                 if ((squares[c.getX()][c.getY()] == null && from.getX() == to.getX())) {
                     if (from.getY() == (to.getY()-2)) {
-                        if (squares[c.getX()][c.getY() - 1] == null) {
+                        if (squares[c.getX()][c.getY() - 1] == null && !squares[from.getX()][from.getY()].isMoved()) {
                             replace(from,to);
                         }
                     } else if (from.getY() == (to.getY()+2)){
-                        if (squares[c.getX()][c.getY() + 1] == null) {
+                        if (squares[c.getX()][c.getY() + 1] == null && !squares[from.getX()][from.getY()].isMoved()) {
                             replace(from,to);
                         }
-                    }else{
+                    } else{
                         replace(from,to);
                     }
 
@@ -134,14 +133,13 @@ public class Board
                     if (squares[x][y].isWhite()==isWhite){
                         for (int i = 0; i<8;i++){
                             for (int j = 0; j<8;j++){
-                                if (squares[j][i]!=null && squares[j][i].isWhite()!= isWhite){
-                                    if (squares[j][i].getDescription() == "Pawn"){
-                                        if (j != x && squares[j][i].MoveList(new Coordinates(j,i),new Coordinates(x,y)).contains(new Coordinates(x,y))){
+                                if (squares[i][j]!=null && squares[i][j].isWhite()!= isWhite){
+                                    if (squares[i][j].getDescription() == "Pawn"){
+                                        if (i != x && squares[i][j].MoveList(new Coordinates(i,j),new Coordinates(x,y)).contains(new Coordinates(x,y))){
                                             return false;
                                         }
-                                    }else if (squares[j][i].MoveList(new Coordinates(j,i),new Coordinates(x,y)).contains(new Coordinates(x,y))){
-
-                                        return !Path(squares[j][i].MoveList(new Coordinates(j,i),new Coordinates(x,y)));
+                                    }else if (squares[i][j].MoveList(new Coordinates(i,j),new Coordinates(x,y)).contains(new Coordinates(x,y))){
+                                        return !Obstacle(squares[i][j].MoveList(new Coordinates(i,j),new Coordinates(x,y)));
                                     }
                                 }
                             }
@@ -160,6 +158,7 @@ public class Board
         squares[from.getX()][from.getY()] = null;
         squares[to.getX()][to.getY()].setMoved(true);
         if (!isKingSafe(turn)){
+
             squares[from.getX()][from.getY()] = squares[to.getX()][to.getY()];
             squares[to.getX()][to.getY()] = k;
             this.turn = !turn;
@@ -198,7 +197,7 @@ public class Board
         for (Coordinates c: l){
             Piece k = squares [c.getX()][c.getY()];
             squares[c.getX()][c.getY()] = new Pawn(true,true);
-            if (isKingSafe(turn)){
+            if (!isKingSafe(turn)){
                 squares[c.getX()][c.getY()] = k;
                 return !Obstacle(squares[pos.getX()][pos.getY()].MoveList(pos,c));
             }

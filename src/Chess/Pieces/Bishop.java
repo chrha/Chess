@@ -37,7 +37,7 @@ public class Bishop implements Piece{
         dir.clear();
         for (int i = from.getX()+1,z = from.getY()-1; i < 8 && z>=0; i++,z--) {
                 dir.add(new Coordinates(i, z));
-                if (i == to.getX() && z == from.getY()) {
+                if (i == to.getX() && z == to.getY()) {
                     return dir;
                 }
             }
@@ -67,4 +67,5 @@ public class Bishop implements Piece{
         return icon;
     }
     public void setMoved(boolean moved){}
+    public boolean isMoved(){return false;}
 }
