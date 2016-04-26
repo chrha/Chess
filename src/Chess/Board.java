@@ -60,15 +60,17 @@ public class Board
     }
 
     public void movePiece(Coordinates from, Coordinates to) {
+//        if (isValid(from,to)){
+//            replace(from,to);
         if (movePossible(from, to)) {
             if (squares[from.getX()][from.getY()].getDescription() == "Pawn") {
                 movePawn(from, to);
             } else if (Obstacle(squares[from.getX()][from.getY()].MoveList(from, to))) {
-                replace(from, to);
+               replace(from, to);
             }
 
 
-        }System.out.println(checkMate(turn));
+        }System.out.println(checkcheckmate());
         notifyListeners();
     }
 
@@ -106,7 +108,6 @@ public class Board
                 }
             }
         }
-
         notifyListeners();
     }
 
@@ -127,12 +128,10 @@ public class Board
                     for (int j = 0; j < 8; j++) {
                         for (int i = 0; i < 8; i++) {
                             if (squares[i][j] != null && squares[i][j].isWhite() != isWhite) {
-                                if (squares[i][j].getDescription() == "Pawn" && i != x &&
-                                    squares[i][j].MoveList(new Coordinates(i, j), new Coordinates(x, y))
-                                            .contains(new Coordinates(x, y))) {
-
-                                    return false;
-
+                                if (squares[i][j].getDescription() == "Pawn"){
+                                    if (i != x && squares[i][j].MoveList(new Coordinates(i, j), new Coordinates(x, y)).contains(new Coordinates(x, y))){
+                                        return false;
+                                    }
                                 } else if (squares[i][j].MoveList(new Coordinates(i, j), new Coordinates(x, y))
                                                    .contains(new Coordinates(x, y)) &&
                                            Obstacle(squares[i][j].MoveList(new Coordinates(i, j), new Coordinates(x, y)))) {
@@ -170,63 +169,85 @@ public class Board
 
     }
 
-    public boolean checkMate(boolean isWhite) {
+
+    public boolean checkcheckmate(){
         for (int y = 0; y < 8; y++) {
             for (int x = 0; x < 8; x++) {
-                if (squares[x][y] != null && squares[x][y].getDescription() == "King" && squares[x][y].isWhite() == isWhite) {
+                if (getPiece(new Coordinates(x,y)) != null && getPiece(new Coordinates(x,y)).isWhite() == turn){
                     for (int j = 0; j < 8; j++) {
                         for (int i = 0; i < 8; i++) {
-                            if (squares[i][j] != null && squares[i][j].isWhite() == isWhite) {
-                                if (checkcheckmate(new Coordinates(i, j), squares[i][j].MoveList(new Coordinates(i, j), new Coordinates(x, y)))) {
-                                    return true;
+                            if (isValid(new Coordinates(x,y), new Coordinates(i,j))) {
+                                Coordinates to =new Coordinates(i,j);
+                                Coordinates from =new Coordinates(x,y);
+                                if(getPiece(new Coordinates(x,y)) != null && squares[x][y].getDescription() == "Pawn" && i != x && place(from,to)){
+                                    return false;
+                                }
+                                else if (place(from,to)){
+                                    return false;
                                 }
                             }
-
                         }
                     }
                 }
             }
         }
-        return false;
-    }
-    public boolean checkcheckmate(Coordinates pos,List<Coordinates> l){
-        for (Coordinates c: l){
-            if( movePossible(pos,c)){
-                if (getPiece(pos).getDescription() == "Pawn" && pos.getX() != c.getX()) {
-                    Piece k = squares [c.getX()][c.getY()];
-                    Piece p = getPiece(pos);
-                    movePawn(pos,c);
-                    if (isKingSafe(turn)){
-                        squares[c.getX()][c.getY()] = k;
-                        squares[pos.getX()][pos.getY()] = p;
-                        return true;
-                    }
-                    squares[c.getX()][c.getY()] = k;
-                    squares[pos.getX()][pos.getY()] = p;
-                }
-
-                }else if (Obstacle(squares[pos.getX()][pos.getY()].MoveList(pos, c))){
-                    Piece k = squares [c.getX()][c.getY()];
-                    squares[c.getX()][c.getY()] = new Pawn(true,true);
-                    if (isKingSafe(turn)){
-                        squares[c.getX()][c.getY()] = k;
-                        return true;
-                    }
-
-                squares[c.getX()][c.getY()] = k;}
-            }
-
-        return false;
+        return true;
     }
 
-   /** public boolean lol(Coordinates pos,List<Coordinates> l){
-        for (int y = 0; y < 8; y++) {
-            for (int x = 0; x < 8; x++) {
-                if(squares[x][y] != null && squares[x][y].getDescription() != "King"){
 
+    public boolean isValid(Coordinates from,Coordinates to){
+
+        if (movePossible(from, to)) {
+            if (squares[from.getX()][from.getY()].getDescription() == "Pawn") {
+                for (Coordinates c : getPiece(from).MoveList(from,to)) {
+                    if (c.getX() == to.getX() && c.getY() == to.getY()) {
+                        if (squares[to.getX()][to.getY()] != null && (squares[from.getX()][from.getY()].isWhite() != squares[to.getX()][to.getY()].isWhite() && from.getX() != to.getX())) {
+
+                            return true;
+                        }
+                        if ((squares[c.getX()][c.getY()] == null && from.getX() == to.getX())) {
+                            if (from.getY() == (to.getY() - 2)) {
+                                if (squares[c.getX()][c.getY() - 1] == null && !squares[from.getX()][from.getY()].isMoved()) {
+
+                                    return true;
+                                }
+                            } else if (from.getY() == (to.getY() + 2)) {
+                                if (squares[c.getX()][c.getY() + 1] == null && !squares[from.getX()][from.getY()].isMoved()) {
+
+                                    return true;
+                                }
+                            } else {
+
+                                return true;
+                            }
+
+                        }
+                    }
                 }
+            }else if (Obstacle(squares[from.getX()][from.getY()].MoveList(from, to))) {
+
+                return true;
             }
         }
-    }*/
+
+        return false;
+    }
+    public void revert(Coordinates from, Coordinates to){
+        Piece k = squares[from.getX()][from.getY()];
+        squares[from.getX()][from.getY()] = squares[to.getX()][to.getY()];
+        squares[to.getX()][to.getY()] = k;
+        this.turn = !turn;
+
+    }
+    public boolean place(Coordinates from,Coordinates to){
+        Piece k = getPiece(to);
+        squares[to.getX()][to.getY()] = getPiece(from);
+        if (isKingSafe(turn)){
+            squares[to.getX()][to.getY()] = k;
+            return true;
+        }
+        squares[to.getX()][to.getY()] = k;
+        return false;
+    }
 
 }

@@ -28,7 +28,7 @@ public class Queen implements Piece{
     }
 
     @Override
-    public List MoveList(Coordinates from,Coordinates to) {
+    public List<Coordinates> MoveList(Coordinates from,Coordinates to) {
         List dir = new ArrayList<Coordinates>();
         for (int i = from.getX()+1,z = from.getY()+1; i < 8 && z<8; i++,z++) {
             dir.add(new Coordinates(i, z));

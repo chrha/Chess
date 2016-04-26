@@ -30,7 +30,7 @@ public class Rook extends AbstractSpecialPiece implements Piece {
     }
 
     @Override
-    public List MoveList(Coordinates from,Coordinates to) {
+    public List<Coordinates> MoveList(Coordinates from,Coordinates to) {
         List dir = new ArrayList<Coordinates>();
         for (int i = from.getX()+1; i<8 ; i++){
             dir.add(new Coordinates(i,to.getY()));

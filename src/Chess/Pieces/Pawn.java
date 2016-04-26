@@ -30,7 +30,7 @@ public class Pawn extends AbstractSpecialPiece implements Piece {
     }
 
     @Override
-    public List MoveList(Coordinates from,Coordinates to) {
+    public List<Coordinates> MoveList(Coordinates from,Coordinates to) {
         List dir = new ArrayList<Coordinates>();
 
         if(isWhite()){

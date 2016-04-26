@@ -12,7 +12,7 @@ public interface Piece {
     void setMoved(boolean moved);
     boolean isMoved();
     boolean isWhite();
-    List MoveList(Coordinates from,Coordinates to);
+    List<Coordinates> MoveList(Coordinates from,Coordinates to);
     String getDescription();
     ImageIcon getIcon();
 }
