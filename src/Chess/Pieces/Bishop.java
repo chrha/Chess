@@ -63,7 +63,7 @@ public class Bishop implements Piece{
     public String getDescription() {
         return "Bishop";
     }
-    public ImageIcon getIcon() {
+    public  ImageIcon getIcon() {
         return icon;
     }
     public void setMoved(boolean moved){}

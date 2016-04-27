@@ -67,7 +67,7 @@ public class Rook extends AbstractSpecialPiece implements Piece {
     public String getDescription() {
         return "Rook";
     }
-    public ImageIcon getIcon() {
+    public  ImageIcon getIcon() {
         return icon;
     }
 }

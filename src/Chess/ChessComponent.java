@@ -47,7 +47,7 @@ public class ChessComponent extends JComponent implements BoardListener {
 }
     @Override
     public Dimension getPreferredSize(){
-        return new Dimension(Board.SIZE * BLOCK, Board.SIZE* BLOCK);
+        return new Dimension(Board.SIZE * BLOCK+200, Board.SIZE* BLOCK);
     }
 
     public void BoardChanged(){

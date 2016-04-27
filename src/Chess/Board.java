@@ -71,6 +71,7 @@ public class Board
 
 
         }System.out.println(checkcheckmate());
+        checkPawn(to);
         notifyListeners();
     }
 
@@ -248,6 +249,19 @@ public class Board
         }
         squares[to.getX()][to.getY()] = k;
         return false;
+    }
+
+    public void checkPawn(Coordinates cor){
+        if(getPiece(cor) != null && getPiece(cor).isWhite() && (cor.getY()==7) ) {
+            NewPieceFrame c=new NewPieceFrame(this, cor);
+        }else if(getPiece(cor) != null && !getPiece(cor).isWhite() && cor.getY()==0){
+            new NewPieceFrame(this, cor);
+        }
+
+    }
+    public void set(Coordinates cor,Piece p){
+        squares[cor.getX()][cor.getY()] = p;
+        notifyListeners();
     }
 
 }

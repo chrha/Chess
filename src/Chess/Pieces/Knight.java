@@ -42,7 +42,7 @@ public class Knight implements Piece{
     public String getDescription() {
         return "Knight";
     }
-    public ImageIcon getIcon() {
+    public  ImageIcon getIcon() {
         return icon;
     }
     public void setMoved(boolean moved){}

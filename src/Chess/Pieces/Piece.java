@@ -14,5 +14,5 @@ public interface Piece {
     boolean isWhite();
     List<Coordinates> MoveList(Coordinates from,Coordinates to);
     String getDescription();
-    ImageIcon getIcon();
+     ImageIcon getIcon();
 }

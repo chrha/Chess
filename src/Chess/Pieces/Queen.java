@@ -94,7 +94,7 @@ public class Queen implements Piece{
     public String getDescription() {
         return "Queen";
     }
-    public ImageIcon getIcon() {
+    public  ImageIcon getIcon() {
         return icon;
     }
     public void setMoved(boolean moved){}

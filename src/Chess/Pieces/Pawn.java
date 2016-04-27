@@ -84,7 +84,7 @@ public class Pawn extends AbstractSpecialPiece implements Piece {
     public String getDescription() {
         return "Pawn";
     }
-    public ImageIcon getIcon() {
+    public  ImageIcon getIcon() {
         return icon;
     }
 }
