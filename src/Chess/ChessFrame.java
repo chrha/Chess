@@ -9,9 +9,14 @@ import java.awt.event.MouseListener;
  * Created by Ilian on 2016-04-05.
  */
 public class ChessFrame extends JFrame implements MouseListener {
+    private static final int BLOCK = 70;
+    private static final int OFFSET_Y = 32;
+    private static final int OFFSET_X = 10;
+
     private Board board;
-    private static int currentX;
+    private int currentX;
     private int currentY;
+
     public ChessFrame(Board board){
         super("Chess");
 
@@ -27,16 +32,16 @@ public class ChessFrame extends JFrame implements MouseListener {
 
     }
     public void mousePressed(MouseEvent e) {
-        double xd = Math.floor((e.getX()-10)/70);
-        double yd = Math.floor((e.getY()-32)/70);
+        double xd = Math.floor((e.getX()-OFFSET_X)/BLOCK);
+        double yd = Math.floor((e.getY()-OFFSET_Y)/BLOCK);
         currentX = (int) xd;
         currentY = (int) yd;
 
     }
 
     public void mouseReleased(MouseEvent e) {
-        double xd = Math.floor((e.getX()-10)/70);
-        double yd = Math.floor(((e.getY()-32))/70);
+        double xd = Math.floor((e.getX()-OFFSET_X)/BLOCK);
+        double yd = Math.floor(((e.getY()-OFFSET_Y))/BLOCK);
         int x=(int) xd;
         int y=(int) yd;
         if ((currentX != x || currentY != y) && x>=0 && x<8 && y>=0 && y<8){

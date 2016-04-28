@@ -26,25 +26,21 @@ public class NewPieceFrame extends JDialog
 	JButton queen=new JButton("Queen");
 	queen.setAction(newQueen);
 	queen.setText("Queen");
-	queen.setBounds(10,10,40,40);
 	pane.add(queen);
 
 	JButton rook= new JButton("Rook");
 	rook.setAction(newRook);
 	rook.setText("Rook");
-	rook.setBounds(60,10,40,40);
 	pane.add(rook);
 
 	JButton bishop= (new JButton("Bishop"));
 	bishop.setAction(newBishop);
 	bishop.setText("Bishop");
-	bishop.setBounds(110,10,40,40);
 	pane.add(bishop);
 
 	JButton knight= (new JButton("Knight"));
 	knight.setAction(newKnight);
 	knight.setText("Knight");
-	knight.setBounds(160,10,40,40);
 	pane.add(knight);
 
 	this.pack();
