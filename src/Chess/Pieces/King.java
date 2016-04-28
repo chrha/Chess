@@ -31,7 +31,7 @@ public class King extends AbstractSpecialPiece implements Piece {
 
     @Override
     public List<Coordinates> MoveList(Coordinates from,Coordinates to) {
-        List dir = new ArrayList<Coordinates>();
+        List<Coordinates> dir = new ArrayList<Coordinates>();
         if (Math.sqrt(Math.pow(from.getX()-to.getX(),2)+Math.pow(from.getY()-to.getY(),2))==1 || Math.sqrt(Math.pow(from.getX()-to.getX(),2)+Math.pow(from.getY()-to.getY(),2))==Math.sqrt(2)){
             dir.add(new Coordinates(to.getX(),to.getY()));
         }

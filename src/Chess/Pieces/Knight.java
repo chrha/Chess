@@ -30,7 +30,7 @@ public class Knight implements Piece{
 
     @Override
     public List<Coordinates> MoveList(Coordinates from, Coordinates to) {
-        List dir = new ArrayList<Coordinates>();
+        List<Coordinates> dir = new ArrayList<Coordinates>();
         double dis = Math.sqrt(Math.pow((from.getX()-to.getX()),2) + Math.pow((from.getY()-to.getY()),2));
         if (dis == Math.sqrt(5)){
             dir.add(new Coordinates(to.getX(),to.getY()));
@@ -42,7 +42,7 @@ public class Knight implements Piece{
     public String getDescription() {
         return "Knight";
     }
-    public  ImageIcon getIcon() {
+    public ImageIcon getIcon() {
         return icon;
     }
     public void setMoved(boolean moved){}

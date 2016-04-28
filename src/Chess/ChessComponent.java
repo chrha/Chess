@@ -17,6 +17,9 @@ public class ChessComponent extends JComponent implements BoardListener {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         final Graphics2D g2d = (Graphics2D) g;
+        if(board.isTurn()){
+
+        }
         for (int y = 0; y < Board.SIZE; y++) {
             for (int x = 0; x < Board.SIZE; x++) {
                 if (y % 2 != 0) {

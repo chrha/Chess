@@ -27,7 +27,7 @@ public class Bishop implements Piece{
 
     @Override
     public List<Coordinates> MoveList(Coordinates from,Coordinates to) {
-        List dir = new ArrayList<Coordinates>();
+        List<Coordinates> dir = new ArrayList<Coordinates>();
         for (int i = from.getX()+1,z = from.getY()+1; i < 8 && z<8; i++,z++) {
                 dir.add(new Coordinates(i, z));
                 if (i == to.getX() && z == to.getY()) {
