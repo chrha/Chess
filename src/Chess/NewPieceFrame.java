@@ -8,7 +8,7 @@ import Chess.Pieces.Rook;
 import javax.swing.*;
 import java.awt.*;
 
-public class NewPieceFrame extends JFrame
+public class NewPieceFrame extends JDialog
 {
     private Coordinates cord;
     private Board board;
@@ -16,9 +16,7 @@ public class NewPieceFrame extends JFrame
     private int currentY;
 
     public NewPieceFrame(Board board,Coordinates cord) {
-	super("Pick new Piece");
-	JDialog g = new JDialog();
-	Container pane = g.getContentPane();
+	Container pane = this.getContentPane();
 	pane.setLayout(new FlowLayout(FlowLayout.CENTER));
 
 
@@ -49,11 +47,11 @@ public class NewPieceFrame extends JFrame
 	knight.setBounds(160,10,40,40);
 	pane.add(knight);
 
-	g.pack();
-	g.setVisible(true);
+	this.pack();
+	this.setVisible(true);
 	this.cord = cord;
 	this.board = board;
-	this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+	this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 	this.setLayout(new BorderLayout());
     }
     private Action newQueen = new AbstractAction(){
@@ -61,6 +59,7 @@ public class NewPieceFrame extends JFrame
 
 	@Override public void actionPerformed(final java.awt.event.ActionEvent e) {
 	    board.set(cord,new Queen(board.getPiece(cord).isWhite()));
+	    dispose();
 
 
 	}
@@ -69,6 +68,7 @@ public class NewPieceFrame extends JFrame
 
 	@Override public void actionPerformed(final java.awt.event.ActionEvent e) {
 	    board.set(cord,new Rook(board.getPiece(cord).isWhite(),true));
+	    dispose();
 
 	}
     };private Action newBishop = new AbstractAction(){
@@ -76,6 +76,7 @@ public class NewPieceFrame extends JFrame
 
 	@Override public void actionPerformed(final java.awt.event.ActionEvent e) {
 	    board.set(cord,new Bishop(board.getPiece(cord).isWhite()));
+	    dispose();
 
 
 	}
@@ -84,6 +85,7 @@ public class NewPieceFrame extends JFrame
 
 	@Override public void actionPerformed(final java.awt.event.ActionEvent e) {
 	    board.set(cord,new Knight(board.getPiece(cord).isWhite()));
+	    dispose();
 
 
 	}
