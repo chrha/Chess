@@ -1,6 +1,6 @@
-package Chess.Pieces;
+package chess.pieces;
 
-import Chess.Coordinates;
+import chess.Coordinates;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -10,30 +10,30 @@ import java.util.List;
  * Created by Ilian on 2016-04-06.
  */
 public class Pawn extends AbstractSpecialPiece implements Piece {
-    private boolean isWhite;
+    private boolean white;
     private ImageIcon icon;
     private boolean moved;
-    public Pawn(boolean isWhite,boolean moved) {
+    public Pawn(boolean white, boolean moved) {
         super(moved);
-        this.isWhite = isWhite;
-        if (isWhite){
-            icon = new ImageIcon(getClass().getResource("/Chess/resources/Pawn_White.png"));
+        this.white = white;
+        if (white){
+            icon = new ImageIcon(getClass().getResource("/chess/resources/Pawn_White.png"));
         }else{
-            icon = new ImageIcon(getClass().getResource("/Chess/resources/Pawn_Black.png"));
+            icon = new ImageIcon(getClass().getResource("/chess/resources/Pawn_Black.png"));
         }
     }
 
     @Override
     public boolean isWhite() {
-        return isWhite;
+        return white;
 
     }
 
     @Override
-    public List<Coordinates> MoveList(Coordinates from,Coordinates to) {
-        List<Coordinates> dir = new ArrayList<Coordinates>();
+    public List<Coordinates> moveList(Coordinates from, Coordinates to) {
+        List<Coordinates> dir = new ArrayList<>();
 
-        if(isWhite()){
+        if(white){
             if(!moved){
                 if (((from.getX()+1)<=7)){
                     dir.add(new Coordinates(from.getX()+1,from.getY()+1));

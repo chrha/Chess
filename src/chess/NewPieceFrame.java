@@ -1,9 +1,9 @@
-package Chess;
+package chess;
 
-import Chess.Pieces.Bishop;
-import Chess.Pieces.Knight;
-import Chess.Pieces.Queen;
-import Chess.Pieces.Rook;
+import chess.pieces.Bishop;
+import chess.pieces.Knight;
+import chess.pieces.Queen;
+import chess.pieces.Rook;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,8 +12,6 @@ public class NewPieceFrame extends JDialog
 {
     private Coordinates cord;
     private Board board;
-    private static int currentX;
-    private int currentY;
 
     public NewPieceFrame(Board board,Coordinates cord) {
 	Container pane = this.getContentPane();
@@ -63,7 +61,7 @@ public class NewPieceFrame extends JDialog
 
 
 	@Override public void actionPerformed(final java.awt.event.ActionEvent e) {
-	    board.set(cord,new Rook(board.getPiece(cord).isWhite(),true));
+	    board.set(cord,new Rook(board.getPiece(cord).isWhite(), true));
 	    dispose();
 
 	}

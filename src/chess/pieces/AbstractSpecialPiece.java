@@ -1,4 +1,4 @@
-package Chess.Pieces;
+package chess.pieces;
 
 public abstract class AbstractSpecialPiece {
     private boolean moved;

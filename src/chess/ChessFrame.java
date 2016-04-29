@@ -1,4 +1,4 @@
-package Chess;
+package chess;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,7 +18,7 @@ public class ChessFrame extends JFrame implements MouseListener {
     private int currentY;
 
     public ChessFrame(Board board){
-        super("Chess");
+        super("chess");
 
         addMouseListener(this);
         this.board = board;

@@ -1,6 +1,6 @@
-package Chess;
+package chess;
 
-import Chess.Pieces.Piece;
+import chess.pieces.Piece;
 
 import javax.swing.*;
 import java.awt.*;
@@ -58,20 +58,20 @@ public class ChessComponent extends JComponent implements BoardListener {
             g2d.setColor(Color.BLACK);
             g2d.drawString("Black",Board.SIZE * BLOCK+TURNSTRING_OFFSET,Board.SIZE * BLOCK/2);
         }
-        if (board.getDeadPieces_White() != null){
+        if (board.getDeadPiecesWhite() != null){
             int row = 0;
             int column =0;
-            int pawn_count=0;
-            for (Piece p : board.getDeadPieces_White() ){
-                if ( p.getDescription() == "Pawn"&& pawn_count==0){
+            int pawnCount=0;
+            for (Piece p : board.getDeadPiecesWhite() ){
+                if ( p.getDescription().equals("Pawn")&& pawnCount==0){
                     p.getIcon().paintIcon(this,g2d,Board.SIZE * BLOCK+BLOCK*row ,BLOCK*column);
-                    pawn_count++;
+                    pawnCount++;
                     row++;
                     if (row>2){
                         column++;
                         row=0;
                     }
-                }else if (p.getDescription() != "Pawn"){
+                }else if (!p.getDescription().equals("Pawn")){
                     p.getIcon().paintIcon(this,g2d,Board.SIZE * BLOCK+BLOCK*row ,BLOCK*column);
                     row++;
                     if (row>2){
@@ -83,20 +83,20 @@ public class ChessComponent extends JComponent implements BoardListener {
             }
 
         }
-        if (board.getDeadPieces_Black() != null){
+        if (board.getDeadPiecesBlack() != null){
             int row = 0;
             int column =-1;
-            int pawn_count=0;
-            for (Piece p : board.getDeadPieces_Black() ){
-                if ( p.getDescription() == "Pawn"&& pawn_count==0){
+            int pawnCount=0;
+            for (Piece p : board.getDeadPiecesBlack() ){
+                if ( p.getDescription().equals("Pawn")&& pawnCount==0){
                     p.getIcon().paintIcon(this,g2d,Board.SIZE * BLOCK+BLOCK*row ,Board.SIZE * BLOCK+BLOCK*column);
-                    pawn_count++;
+                    pawnCount++;
                     row++;
                     if (row>2){
                         column--;
                         row=0;
                     }
-                }else if (p.getDescription() != "Pawn"){
+                }else if (!p.getDescription().equals("Pawn")){
                     p.getIcon().paintIcon(this,g2d,Board.SIZE * BLOCK+BLOCK*row ,Board.SIZE * BLOCK+BLOCK*column);
                     row++;
                     if (row>2){
@@ -112,7 +112,7 @@ public class ChessComponent extends JComponent implements BoardListener {
         return new Dimension(Board.SIZE * BLOCK+INFO_BAR, Board.SIZE* BLOCK);
     }
 
-    public void BoardChanged(){
+    public void boardChanged(){
         repaint();
     }
 }

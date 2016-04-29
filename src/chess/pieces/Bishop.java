@@ -1,6 +1,6 @@
-package Chess.Pieces;
+package chess.pieces;
 
-import Chess.Coordinates;
+import chess.Coordinates;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -10,24 +10,24 @@ import java.util.List;
  * Created by Ilian on 2016-04-06.
  */
 public class Bishop implements Piece{
-    private boolean isWhite;
+    private boolean white;
     private ImageIcon icon;
 
-    public Bishop(boolean isWhite) {
-        this.isWhite = isWhite;
-        if (isWhite){
-            icon = new ImageIcon(getClass().getResource("/Chess/resources/Bishop_White.png"));
+    public Bishop(boolean white) {
+        this.white = white;
+        if (white){
+            icon = new ImageIcon(getClass().getResource("/chess/resources/Bishop_White.png"));
         }else{
-            icon = new ImageIcon(getClass().getResource("/Chess/resources/Bishop_Black.png"));
+            icon = new ImageIcon(getClass().getResource("/chess/resources/Bishop_Black.png"));
         }
     }
     public boolean isWhite(){
-        return isWhite;
+        return white;
     }
 
     @Override
-    public List<Coordinates> MoveList(Coordinates from,Coordinates to) {
-        List<Coordinates> dir = new ArrayList<Coordinates>();
+    public List<Coordinates> moveList(Coordinates from, Coordinates to) {
+        List<Coordinates> dir = new ArrayList<>();
         for (int i = from.getX()+1,z = from.getY()+1; i < 8 && z<8; i++,z++) {
                 dir.add(new Coordinates(i, z));
                 if (i == to.getX() && z == to.getY()) {
