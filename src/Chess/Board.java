@@ -76,9 +76,10 @@ public class Board
     }
 
     public void movePiece(Coordinates from, Coordinates to) {
-
         if (isValid(from,to)) {
             replace(from, to);
+        }if ((getPiece(from)!=null && getPiece(to)!=null)&&getPiece(from).getDescription() == "King" && getPiece(to).getDescription() == "Rook"){
+            rockade(from,to);
         }
         if (checkmate()){
             int reply = JOptionPane.showConfirmDialog(null, "CHECKMATE! \n Restart?", "Chess", JOptionPane.YES_NO_OPTION);
@@ -297,6 +298,34 @@ public class Board
                 this.squares[x][y] = null;
             }
         }
+    }
+
+    public void rockade(Coordinates from, Coordinates to){
+        if(!(getPiece(from).isMoved() && getPiece(to).isMoved()) &&(getPiece(from).isWhite() == getPiece(to).isWhite())){
+            if(Obstacle(getPiece(to).MoveList(to,from))){
+                if(from.getX() > to.getX()){
+                    if(place(from,new Coordinates((from.getX()-1),from.getY())) &&
+                            place(from,new Coordinates((from.getX()-2),from.getY()))){
+                        replace(from,new Coordinates((from.getX()-2),from.getY()));
+                        replace(to,new Coordinates((from.getX()-1),from.getY()));
+                        squares[from.getX()-1][from.getY()].setMoved(true);
+                        squares[from.getX()-2][from.getY()].setMoved(true);
+                        System.out.println(squares[from.getX()-2][from.getY()].isMoved());
+
+                    }
+                }else if(from.getX() < to.getX()){
+                    if(place(from,new Coordinates((from.getX()+1),from.getY())) &&
+                            place(from,new Coordinates((from.getX()+2),from.getY()))){
+                        replace(from,new Coordinates((from.getX()+2),from.getY()));
+                        replace(to,new Coordinates((from.getX()+1),from.getY()));
+                        squares[from.getX()+1][from.getY()].setMoved(true);
+                        squares[from.getX()+2][from.getY()].setMoved(true);
+
+                    }
+                }
+            }
+        }
+        notifyListeners();
     }
 
 }

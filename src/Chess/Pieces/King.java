@@ -12,7 +12,6 @@ import java.util.List;
 public class King extends AbstractSpecialPiece implements Piece {
     private boolean isWhite;
     private ImageIcon icon;
-    private boolean moved;
 
     public King(boolean isWhite,boolean moved) {
         super(moved);
@@ -45,5 +44,4 @@ public class King extends AbstractSpecialPiece implements Piece {
     public  ImageIcon getIcon() {
         return icon;
     }
-    public void setMoved(boolean moved){}
 }
