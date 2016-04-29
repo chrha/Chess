@@ -9,12 +9,13 @@ import java.util.List;
 /**
  * Created by Ilian on 2016-04-06.
  */
-public class King extends AbstractSpecialPiece implements Piece {
+public class King implements Piece {
     private boolean white;
     private ImageIcon icon;
+    private boolean moved;
 
     public King(boolean isWhite,boolean moved) {
-        super(moved);
+        this.moved = moved;
         this.white = isWhite;
         if (isWhite){
             icon = new ImageIcon(getClass().getResource("/chess/resources/King_White.png"));
@@ -41,7 +42,9 @@ public class King extends AbstractSpecialPiece implements Piece {
     public String getDescription() {
         return "King";
     }
-    public  ImageIcon getIcon() {
+    public ImageIcon getIcon() {
         return icon;
     }
+    public boolean isMoved(){return moved;}
+    public void setMoved(boolean moved){this.moved = moved;}
 }

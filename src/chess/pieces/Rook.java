@@ -10,12 +10,13 @@ import java.util.List;
 /**
  * Created by Ilian on 2016-04-06.
  */
-public class Rook extends AbstractSpecialPiece implements Piece {
+public class Rook implements Piece {
     private boolean white;
     private ImageIcon icon;
+    private boolean moved;
 
     public Rook(boolean white, boolean moved) {
-        super(moved);
+        this.moved = moved;
         this.white = white;
         if (white){
             icon = new ImageIcon(getClass().getResource("/chess/resources/Rook_White.png"));
@@ -66,7 +67,9 @@ public class Rook extends AbstractSpecialPiece implements Piece {
     public String getDescription() {
         return "Rook";
     }
-    public  ImageIcon getIcon() {
+    public ImageIcon getIcon() {
         return icon;
     }
+    public boolean isMoved(){return moved;}
+    public void setMoved(boolean moved){this.moved = moved;}
 }

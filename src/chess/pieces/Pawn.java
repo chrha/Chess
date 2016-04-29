@@ -9,12 +9,12 @@ import java.util.List;
 /**
  * Created by Ilian on 2016-04-06.
  */
-public class Pawn extends AbstractSpecialPiece implements Piece {
+public class Pawn implements Piece {
     private boolean white;
     private ImageIcon icon;
     private boolean moved;
     public Pawn(boolean white, boolean moved) {
-        super(moved);
+        this.moved = moved;
         this.white = white;
         if (white){
             icon = new ImageIcon(getClass().getResource("/chess/resources/Pawn_White.png"));
@@ -81,10 +81,10 @@ public class Pawn extends AbstractSpecialPiece implements Piece {
 
 
     @Override
-    public String getDescription() {
-        return "Pawn";
-    }
+    public String getDescription() {return "Pawn";}
     public  ImageIcon getIcon() {
         return icon;
     }
+    public boolean isMoved(){return moved;}
+    public void setMoved(boolean moved){this.moved = moved;}
 }
