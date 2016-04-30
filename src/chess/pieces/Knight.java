@@ -31,8 +31,8 @@ public class Knight implements Piece{
     @Override
     public List<Coordinates> moveList(Coordinates from, Coordinates to) {
         List<Coordinates> dir = new ArrayList<>();
-        int dis = (int)Math.sqrt(Math.pow((from.getX()-to.getX()),2) + Math.pow((from.getY()-to.getY()),2));
-        if (dis == (int)Math.sqrt(5)){
+        double dis = Math.sqrt(Math.pow((from.getX()-to.getX()),2) + Math.pow((from.getY()-to.getY()),2));
+        if (dis == Math.sqrt(5)){
             dir.add(new Coordinates(to.getX(),to.getY()));
         }
         return dir;

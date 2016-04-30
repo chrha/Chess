@@ -176,6 +176,7 @@ public class Board
                             if (isValid(new Coordinates(x,y), new Coordinates(i,j))) {
                                 Coordinates to =new Coordinates(i,j);
                                 Coordinates from =new Coordinates(x,y);
+                                System.out.println(place(from,to));
                                 if (place(from,to)){
                                     return false;
                                 }
