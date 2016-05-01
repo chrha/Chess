@@ -1,4 +1,4 @@
-package chess;
+package se.liu.ida.chrha376.chess;
 
 /**
  * Created by Ilian on 2016-04-05.

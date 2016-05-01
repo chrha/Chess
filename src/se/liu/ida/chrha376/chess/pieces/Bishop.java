@@ -1,6 +1,7 @@
-package chess.pieces;
+package se.liu.ida.chrha376.chess.pieces;
 
-import chess.Coordinates;
+import se.liu.ida.chrha376.chess.Coordinates;
+import se.liu.ida.chrha376.chess.Coordinates;
 
 import javax.swing.*;
 import java.util.ArrayList;

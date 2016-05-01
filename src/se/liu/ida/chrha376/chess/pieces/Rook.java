@@ -1,6 +1,8 @@
-package chess.pieces;
+package se.liu.ida.chrha376.chess.pieces;
 
-import chess.Coordinates;
+
+import se.liu.ida.chrha376.chess.Coordinates;
+import se.liu.ida.chrha376.chess.Coordinates;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -9,19 +11,20 @@ import java.util.List;
 /**
  * Used as Piece on Board.
  */
-public class Queen implements Piece{
+public class Rook implements Piece {
     private boolean white;
     private ImageIcon icon;
+    private boolean moved;
 
-    public Queen(boolean white) {
+    public Rook(boolean white, boolean moved) {
+        this.moved = moved;
         this.white = white;
         if (white){
-            icon = new ImageIcon(getClass().getResource("/chess/resources/Queen_White.png"));
+            icon = new ImageIcon(getClass().getResource("/chess/resources/Rook_White.png"));
         }else{
-            icon = new ImageIcon(getClass().getResource("/chess/resources/Queen_Black.png"));
+            icon = new ImageIcon(getClass().getResource("/chess/resources/Rook_Black.png"));
         }
     }
-
     @Override
     public boolean isWhite() {
         return white;
@@ -30,42 +33,12 @@ public class Queen implements Piece{
     @Override
     public List<Coordinates> moveList(Coordinates from, Coordinates to) {
         List<Coordinates> dir = new ArrayList<>();
-        for (int i = from.getX()+1,z = from.getY()+1; i < 8 && z<8; i++,z++) {
-            dir.add(new Coordinates(i, z));
-            if (i == to.getX() && z == to.getY()) {
-                return dir;
-            }
-        }
-        dir.clear();
-
-        for (int i = from.getX()+1,z = from.getY()-1; i < 8 && z>=0; i++,z--) {
-            dir.add(new Coordinates(i, z));
-            if (i == to.getX() && z == to.getY()) {
-                return dir;
-            }
-        }
-        dir.clear();
-        for (int i = from.getX()-1,z = from.getY()+1; i>=0 && z<8 ; i--,z++) {
-            dir.add(new Coordinates(i, z));
-            if (i == to.getX() && z == to.getY()) {
-                return dir;
-            }
-        }
-        dir.clear();
-        for (int i = from.getX()-1,z = from.getY()-1; i >= 0 && z>=0; i--,z--) {
-            dir.add(new Coordinates(i, z));
-            if (i == to.getX() && z == to.getY()) {
-                return dir;
-            }
-        }
-        dir.clear();
         for (int i = from.getX()+1; i<8 ; i++){
             dir.add(new Coordinates(i,to.getY()));
             if (i == to.getX() && from.getY() == to.getY()){
                 return dir;
             }
         }
-
         dir.clear();
         for (int i = from.getX()-1; i>=0 ; i--) {
             dir.add(new Coordinates(i,to.getY()));
@@ -90,13 +63,14 @@ public class Queen implements Piece{
         dir.clear();
         return dir;
     }
+
     @Override
     public String getDescription() {
-        return "Queen";
+        return "Rook";
     }
-    public  ImageIcon getIcon() {
+    public ImageIcon getIcon() {
         return icon;
     }
-    public void setMoved(boolean moved){}
-    public boolean isMoved(){return false;}
+    public boolean isMoved(){return moved;}
+    public void setMoved(boolean moved){this.moved = moved;}
 }

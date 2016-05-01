@@ -1,6 +1,6 @@
-package chess;
+package se.liu.ida.chrha376.chess;
 
-import chess.pieces.Piece;
+import se.liu.ida.chrha376.chess.pieces.Piece;
 
 import javax.swing.*;
 import java.awt.*;

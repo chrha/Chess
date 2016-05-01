@@ -1,9 +1,9 @@
-package chess;
+package se.liu.ida.chrha376.chess;
 
-import chess.pieces.Bishop;
-import chess.pieces.Knight;
-import chess.pieces.Queen;
-import chess.pieces.Rook;
+import se.liu.ida.chrha376.chess.pieces.Bishop;
+import se.liu.ida.chrha376.chess.pieces.Knight;
+import se.liu.ida.chrha376.chess.pieces.Queen;
+import se.liu.ida.chrha376.chess.pieces.Rook;
 
 import javax.swing.*;
 import java.awt.*;
