@@ -8,6 +8,9 @@ import chess.pieces.Rook;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * JDialog that pops up when a Pawn object in board has reached the end of the board and gives you options to change piece.
+ */
 public class NewPieceFrame extends JDialog
 {
     private Coordinates cord;
@@ -48,7 +51,7 @@ public class NewPieceFrame extends JDialog
 	this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 	this.setLayout(new BorderLayout());
     }
-    private Action newQueen = new AbstractAction(){
+    protected Action newQueen = new AbstractAction(){
 
 
 	@Override public void actionPerformed(final java.awt.event.ActionEvent e) {
@@ -57,7 +60,7 @@ public class NewPieceFrame extends JDialog
 
 
 	}
-    };private Action newRook = new AbstractAction(){
+    };protected Action newRook = new AbstractAction(){
 
 
 	@Override public void actionPerformed(final java.awt.event.ActionEvent e) {
@@ -65,7 +68,7 @@ public class NewPieceFrame extends JDialog
 	    dispose();
 
 	}
-    };private Action newBishop = new AbstractAction(){
+    };protected Action newBishop = new AbstractAction(){
 
 
 	@Override public void actionPerformed(final java.awt.event.ActionEvent e) {
@@ -74,7 +77,7 @@ public class NewPieceFrame extends JDialog
 
 
 	}
-    };private Action newKnight = new AbstractAction(){
+    };protected Action newKnight = new AbstractAction(){
 
 
 	@Override public void actionPerformed(final java.awt.event.ActionEvent e) {

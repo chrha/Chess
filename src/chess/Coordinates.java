@@ -1,5 +1,8 @@
 package chess;
 
+/**
+ * Used to simplify coordintes on the board.
+ */
 public class Coordinates {
     private int x;
     private int y;

@@ -6,7 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * Created by Ilian on 2016-04-06.
+ * Takes care of all the visual aspects of the board. Implements BoardListener to know if the board has been changed.
  */
 public class ChessComponent extends JComponent implements BoardListener {
     private final static int BLOCK = 70;
@@ -57,6 +57,9 @@ public class ChessComponent extends JComponent implements BoardListener {
         }else{
             g2d.setColor(Color.BLACK);
             g2d.drawString("Black",Board.SIZE * BLOCK+TURNSTRING_OFFSET,Board.SIZE * BLOCK/2);
+        }
+        if (board.isKingSafe(board.isTurn())){
+
         }
         if (board.getDeadPiecesWhite() != null){
             int row = 0;

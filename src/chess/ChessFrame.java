@@ -6,7 +6,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 /**
- * Created by Ilian on 2016-04-05.
+ * Makes all components visable and gets input from MouseListener.
  */
 public class ChessFrame extends JFrame implements MouseListener {
     private static final int BLOCK = 70;

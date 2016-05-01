@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Ilian on 2016-04-06.
+ * Used as Piece on Board.
  */
 public class King implements Piece {
     private boolean white;

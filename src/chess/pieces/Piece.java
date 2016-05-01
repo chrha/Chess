@@ -6,7 +6,7 @@ import javax.swing.*;
 import java.util.List;
 
 /**
- * Created by Ilian on 2016-04-06.
+ * Interface for all pieces that are used in board.
  */
 public interface Piece {
     void setMoved(boolean moved);
