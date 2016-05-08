@@ -7,16 +7,17 @@ import se.liu.ida.chrha376.chess.pieces.Rook;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 
 /**
  * JDialog that pops up when a Pawn object in board has reached the end of the board and gives you options to change piece.
  */
-public class NewPieceFrame extends JDialog
+public class NewPieceDialog extends JDialog
 {
     private Coordinates cord;
     private Board board;
 
-    public NewPieceFrame(Board board,Coordinates cord) {
+    public NewPieceDialog(Board board, Coordinates cord) {
 	Container pane = this.getContentPane();
 	pane.setLayout(new FlowLayout(FlowLayout.CENTER));
 
@@ -54,7 +55,7 @@ public class NewPieceFrame extends JDialog
     protected Action newQueen = new AbstractAction(){
 
 
-	@Override public void actionPerformed(final java.awt.event.ActionEvent e) {
+	@Override public void actionPerformed(final ActionEvent e) {
 	    board.set(cord,new Queen(board.getPiece(cord).isWhite()));
 	    dispose();
 
@@ -63,7 +64,7 @@ public class NewPieceFrame extends JDialog
     };protected Action newRook = new AbstractAction(){
 
 
-	@Override public void actionPerformed(final java.awt.event.ActionEvent e) {
+	@Override public void actionPerformed(final ActionEvent e) {
 	    board.set(cord,new Rook(board.getPiece(cord).isWhite(), true));
 	    dispose();
 
@@ -71,7 +72,7 @@ public class NewPieceFrame extends JDialog
     };protected Action newBishop = new AbstractAction(){
 
 
-	@Override public void actionPerformed(final java.awt.event.ActionEvent e) {
+	@Override public void actionPerformed(final ActionEvent e) {
 	    board.set(cord,new Bishop(board.getPiece(cord).isWhite()));
 	    dispose();
 
@@ -80,7 +81,7 @@ public class NewPieceFrame extends JDialog
     };protected Action newKnight = new AbstractAction(){
 
 
-	@Override public void actionPerformed(final java.awt.event.ActionEvent e) {
+	@Override public void actionPerformed(final ActionEvent e) {
 	    board.set(cord,new Knight(board.getPiece(cord).isWhite()));
 	    dispose();
 

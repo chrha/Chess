@@ -1,7 +1,6 @@
 package se.liu.ida.chrha376.chess.pieces;
 
 import se.liu.ida.chrha376.chess.Coordinates;
-import se.liu.ida.chrha376.chess.Coordinates;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -33,7 +32,7 @@ public class King implements Piece {
     @Override
     public List<Coordinates> moveList(Coordinates from, Coordinates to) {
         List<Coordinates> dir = new ArrayList<>();
-        if ((int)Math.sqrt(Math.pow(from.getX()-to.getX(),2)+Math.pow(from.getY()-to.getY(),2))==1 || (int)Math.sqrt(Math.pow(from.getX()-to.getX(),2)+Math.pow(from.getY()-to.getY(),2))==Math.sqrt(2)){
+        if ((int)(Math.sqrt(Math.pow(from.getX()-to.getX(),2)+Math.pow(from.getY()-to.getY(),2)))==1 || (int)(Math.sqrt(Math.pow(from.getX()-to.getX(),2)+Math.pow(from.getY()-to.getY(),2)))==(int)Math.sqrt(2)){
             dir.add(new Coordinates(to.getX(),to.getY()));
         }
         return dir;

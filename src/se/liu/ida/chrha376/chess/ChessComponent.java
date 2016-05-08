@@ -22,33 +22,8 @@ public class ChessComponent extends JComponent implements BoardListener {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         final Graphics2D g2d = (Graphics2D) g;
-        for (int y = 0; y < Board.SIZE; y++) {
-            for (int x = 0; x < Board.SIZE; x++) {
-                if (y % 2 != 0) {
-                    if (x % 2 != 0) {
-                        g2d.setColor(Color.BLACK);
-                        g2d.fillRect(x * BLOCK, y * BLOCK, BLOCK, BLOCK);
-                    } else {
-                        g2d.setColor(Color.WHITE);
-                        g2d.fillRect(x * BLOCK, y * BLOCK, BLOCK, BLOCK);
-                    }
-                } else {
-                    if (x % 2 == 0) {
-                        g2d.setColor(Color.BLACK);
-                        g2d.fillRect(x * BLOCK, y * BLOCK, BLOCK, BLOCK);
-                    } else {
-                        g2d.setColor(Color.WHITE);
-                        g2d.fillRect(x * BLOCK, y * BLOCK, BLOCK, BLOCK);
+        boardPaint(g2d);
 
-                    }
-                }
-                if (board.getPiece(new Coordinates(x,y)) != null){
-                    board.getPiece(new Coordinates(x,y)).getIcon().paintIcon(this,g2d,x*BLOCK,y*BLOCK);
-                }
-
-
-            }
-        }
         g.setFont(new Font("TimesRoman", Font.PLAIN, FONT_SIZE));
         g2d.drawString("Turn: ",Board.SIZE * BLOCK,Board.SIZE * BLOCK/2);
         if (board.isTurn()){
@@ -58,9 +33,11 @@ public class ChessComponent extends JComponent implements BoardListener {
             g2d.setColor(Color.BLACK);
             g2d.drawString("Black",Board.SIZE * BLOCK+TURNSTRING_OFFSET,Board.SIZE * BLOCK/2);
         }
-        if (board.isKingSafe(board.isTurn())){
 
+        if (!board.isKingSafe(board.isTurn())){
+            g2d.drawString("CHECK!",Board.SIZE * BLOCK,Board.SIZE * BLOCK/3);
         }
+
         if (board.getDeadPiecesWhite() != null){
             int row = 0;
             int column =0;
@@ -117,5 +94,32 @@ public class ChessComponent extends JComponent implements BoardListener {
 
     public void boardChanged(){
         repaint();
+    }
+
+    public void boardPaint(Graphics2D g2d){
+        for (int y = 0; y < Board.SIZE; y++) {
+            for (int x = 0; x < Board.SIZE; x++) {
+                if (y % 2 != 0) {
+                    if (x % 2 != 0) {
+                        g2d.setColor(Color.BLACK);
+                        g2d.fillRect(x * BLOCK, y * BLOCK, BLOCK, BLOCK);
+                    } else {
+                        g2d.setColor(Color.WHITE);
+                        g2d.fillRect(x * BLOCK, y * BLOCK, BLOCK, BLOCK);
+                    }
+                } else {
+                    if (x % 2 == 0) {
+                        g2d.setColor(Color.BLACK);
+                        g2d.fillRect(x * BLOCK, y * BLOCK, BLOCK, BLOCK);
+                    } else {
+                        g2d.setColor(Color.WHITE);
+                        g2d.fillRect(x * BLOCK, y * BLOCK, BLOCK, BLOCK);
+                    }
+                }
+                if (board.getPiece(new Coordinates(x,y)) != null) {
+                    board.getPiece(new Coordinates(x, y)).getIcon().paintIcon(this, g2d, x * BLOCK, y * BLOCK);
+                }
+            }
+        }
     }
 }

@@ -10,6 +10,7 @@ import se.liu.ida.chrha376.chess.pieces.Rook;
 
 import javax.swing.*;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -18,10 +19,13 @@ import java.util.List;
  */
 public class Board
 {
+    /**
+     * The absolute size of a chess board.
+     */
     public final static int SIZE = 8;
     private Piece[][] squares;
-    private List<Piece> deadPiecesWhite = new ArrayList<>();
-    private List<Piece> deadPiecesBlack = new ArrayList<>();
+    private Collection<Piece> deadPiecesWhite = new ArrayList<>();
+    private Collection<Piece> deadPiecesBlack = new ArrayList<>();
     private List<BoardListener> boardlisteners;
     private boolean turn = true;
 
@@ -33,11 +37,11 @@ public class Board
         boardSetup();
     }
 
-    public List<Piece> getDeadPiecesWhite() {
+    public Iterable<Piece> getDeadPiecesWhite() {
         return deadPiecesWhite;
     }
 
-    public List<Piece> getDeadPiecesBlack() {
+    public Iterable<Piece> getDeadPiecesBlack() {
         return deadPiecesBlack;
     }
 
@@ -52,7 +56,7 @@ public class Board
         if (isValid(from,to)) {
             replace(from, to);
         }if ((getPiece(from)!=null && getPiece(to)!=null)&&getPiece(from).getDescription().equals("King") && getPiece(to).getDescription().equals("Rook")){
-            rockade(from,to);
+            cancel(from, to);
         }
         if (checkmate()){
             int reply = JOptionPane.showConfirmDialog(null, "CHECKMATE! \n Restart?", "chess", JOptionPane.YES_NO_OPTION);
@@ -87,12 +91,17 @@ public class Board
         }
     }
 
-    public boolean isKingSafe(boolean isWhite) {
-        Coordinates kingpos = findKing(isWhite);
-        if (squares[kingpos.getX()][kingpos.getY()] != null && squares[kingpos.getX()][kingpos.getY()].getDescription().equals("King") && squares[kingpos.getX()][kingpos.getY()].isWhite() == isWhite) {
+    /**
+     * Checks if one of the kings are safe by checking if any of the opponets pieces are threatening the king.
+     * @param white The color of the king.
+     * @return Whether the king is safe or not
+     */
+    public boolean isKingSafe(boolean white) {
+        Coordinates kingpos = findKing(white);
+        if (squares[kingpos.getX()][kingpos.getY()] != null && squares[kingpos.getX()][kingpos.getY()].getDescription().equals("King") && squares[kingpos.getX()][kingpos.getY()].isWhite() == white) {
             for (int j = 0; j < 8; j++) {
                 for (int i = 0; i < 8; i++) {
-                    if (squares[i][j] != null && squares[i][j].isWhite() != isWhite) {
+                    if (squares[i][j] != null && squares[i][j].isWhite() != white) {
                         if (squares[i][j].getDescription().equals("Pawn")) {
                             if (i != kingpos.getX() && squares[i][j].moveList(new Coordinates(i, j), new Coordinates(kingpos.getX(), kingpos.getY()))
                                     .contains(new Coordinates(kingpos.getX(), kingpos.getY()))) {
@@ -109,16 +118,23 @@ public class Board
         }
         return true;
     }
-    public Coordinates findKing(boolean isWhite){
+    public Coordinates findKing(boolean white){
         for (int y = 0; y < 8; y++) {
             for (int x = 0; x < 8; x++) {
-                if (squares[x][y] != null && squares[x][y].getDescription().equals("King") && squares[x][y].isWhite() == isWhite) {
+                if (squares[x][y] != null && squares[x][y].getDescription().equals("King") && squares[x][y].isWhite() == white) {
                     return new Coordinates(x,y);
                 }
             }
         }
         return null;
     }
+
+    /**
+     *Moves piece only if king is safe and adds dead pieces to a list if
+     * one of the oponents pieces is where you are trying to move to.
+     * @param from The coordinates for the piece that you are trying to move.
+     * @param to The coordinate that you are trying to move the piece to.
+     */
 
     public void replace(Coordinates from, Coordinates to) {
         Piece k = squares[to.getX()][to.getY()];
@@ -150,7 +166,11 @@ public class Board
 
     }
 
-
+    /**
+     * Checks if is checkmate by checking if any of your pieces can move in a certain way to protect the king.
+     * Method overly complex and cant be simplified.
+     * @return If you are in checkmate.
+     */
     public boolean checkmate() {
         for (int y = 0; y < SIZE; y++) {
             for (int x = 0; x < SIZE; x++) {
@@ -160,7 +180,6 @@ public class Board
                             if (isValid(new Coordinates(x, y), new Coordinates(i, j))) {
                                 Coordinates to = new Coordinates(i, j);
                                 Coordinates from = new Coordinates(x, y);
-                                System.out.println(place(from, to));
                                 if (place(from, to)) {
                                     return false;
                                 }
@@ -209,6 +228,13 @@ public class Board
         }
         return false;
     }
+
+    /**
+     * Returns if king is safe after a move, by placing that piece in the coordinate.
+     * @param from Coordinate for the piece that you are moving
+     * @param to Coordinate that you are moving to.
+     * @return If the move can save the king.
+     */
     public boolean place(Coordinates from,Coordinates to){
         Piece k = getPiece(to);
         squares[to.getX()][to.getY()] = getPiece(from);
@@ -225,7 +251,10 @@ public class Board
 
     public void checkPawn(Coordinates cor){
         if(getPiece(cor) != null && getPiece(cor).getDescription().equals("Pawn") && ((cor.getY() == 7) || (cor.getY() == 0))) {
-            new NewPieceFrame(this, cor);
+	    /**
+             * We are not intrested in the result of NewPieceDialog, only that it shows us our dialog.
+             */
+            new NewPieceDialog(this, cor);
         }
 
     }
@@ -249,7 +278,12 @@ public class Board
         }
     }
 
-    public void rockade(Coordinates from, Coordinates to){
+    /**
+     * Metod for canceling.
+     * @param from Coordinate for the king.
+     * @param to Coordinate for the rook.
+     */
+    public void cancel(Coordinates from, Coordinates to){
         if((!getPiece(from).isMoved() && !getPiece(to).isMoved()) && (getPiece(from).isWhite() == getPiece(to).isWhite())){
             if(noObstacle(getPiece(to).moveList(to, from))){
                 if(from.getX() > to.getX()){
@@ -260,7 +294,6 @@ public class Board
                         replace(to,new Coordinates((from.getX()-1),from.getY()));
                         squares[from.getX()-1][from.getY()].setMoved(true);
                         squares[from.getX()-2][from.getY()].setMoved(true);
-                        System.out.println(squares[from.getX()-2][from.getY()].isMoved());
 
                     }
                 }else if(from.getX() < to.getX()){
@@ -278,6 +311,10 @@ public class Board
         }
         notifyListeners();
     }
+
+    /**
+     * Metod to complpex and can not be simplified. Places Pieces on Board in an orthodox chess setup.
+     */
     public void boardSetup(){
         for (int y = 0; y < SIZE; y++) {
             for (int x = 0; x < SIZE; x++) {

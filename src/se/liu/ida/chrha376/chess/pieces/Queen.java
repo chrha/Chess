@@ -1,7 +1,6 @@
 package se.liu.ida.chrha376.chess.pieces;
 
 import se.liu.ida.chrha376.chess.Coordinates;
-import se.liu.ida.chrha376.chess.Coordinates;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -28,6 +27,14 @@ public class Queen implements Piece{
         return white;
     }
 
+    /**
+     * Method dictates where a queen can move not considering the pieces on the board and sense the queen can
+     * move in all direction the method gets complex.
+     * @param from Queens Coordinates
+     * @param to Coordinate you want to move to.
+     * @return List of Coordinates that will be the path it will take to get do its destination. If the queen cant
+     * get to that destination the method will return an empty List.
+     */
     @Override
     public List<Coordinates> moveList(Coordinates from, Coordinates to) {
         List<Coordinates> dir = new ArrayList<>();

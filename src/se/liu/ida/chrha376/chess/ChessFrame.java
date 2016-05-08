@@ -32,16 +32,16 @@ public class ChessFrame extends JFrame implements MouseListener {
 
     }
     public void mousePressed(MouseEvent e) {
-        double xd = Math.floor((e.getX()-OFFSET_X)/BLOCK);
-        double yd = Math.floor((e.getY()-OFFSET_Y)/BLOCK);
+        double xd = Math.floor((double)(e.getX()-OFFSET_X)/BLOCK);
+        double yd = Math.floor((double)(e.getY()-OFFSET_Y)/BLOCK);
         currentX = (int) xd;
         currentY = (int) yd;
 
     }
 
     public void mouseReleased(MouseEvent e) {
-        double xd = Math.floor((e.getX()-OFFSET_X)/BLOCK);
-        double yd = Math.floor(((e.getY()-OFFSET_Y))/BLOCK);
+        double xd = Math.floor((double)(e.getX()-OFFSET_X)/BLOCK);
+        double yd = Math.floor((double)((e.getY()-OFFSET_Y))/BLOCK);
         int x=(int) xd;
         int y=(int) yd;
         if ((currentX != x || currentY != y) && x>=0 && x<8 && y>=0 && y<8){

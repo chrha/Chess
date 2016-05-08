@@ -1,7 +1,6 @@
 package se.liu.ida.chrha376.chess.pieces;
 
 import se.liu.ida.chrha376.chess.Coordinates;
-import se.liu.ida.chrha376.chess.Coordinates;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -33,6 +32,11 @@ public class Knight implements Piece{
     public List<Coordinates> moveList(Coordinates from, Coordinates to) {
         List<Coordinates> dir = new ArrayList<>();
         double dis = Math.sqrt(Math.pow((from.getX()-to.getX()),2) + Math.pow((from.getY()-to.getY()),2));
+	/**
+	 * dis is the exact distance to a possible coordinate in for Knight based on Pythagoras theorem.
+         * Java is complaining about comparing floating point values for exact equality, but sense we are comparing
+         * Math.sqrt(5) == Math.sqrt(5) this should not be a problem.
+         */
         if (dis == Math.sqrt(5)){
             dir.add(new Coordinates(to.getX(),to.getY()));
         }
