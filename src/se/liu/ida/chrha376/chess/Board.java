@@ -313,7 +313,7 @@ public class Board
     }
 
     /**
-     * Metod to complpex and can not be simplified. Places Pieces on Board in an orthodox chess setup.
+     * Method too complex and can not be simplified. Places Pieces on Board in an orthodox chess setup.
      */
     public void boardSetup(){
         for (int y = 0; y < SIZE; y++) {
