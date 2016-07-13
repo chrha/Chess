@@ -10,12 +10,12 @@ import java.util.List;
  * Used as Piece on Board.
  */
 public class Knight implements Piece{
-    private boolean white;
+    private PieceColor color;
     private ImageIcon icon;
 
-    public Knight(boolean white) {
-        this.white = white;
-        if (white){
+    public Knight(PieceColor color) {
+        this.color = color;
+        if (this.color == PieceColor.WHITE){
             icon = new ImageIcon(getClass().getResource("/chess/resources/Knight_White.png"));
         }else{
             icon = new ImageIcon(getClass().getResource("/chess/resources/Knight_Black.png"));
@@ -23,9 +23,8 @@ public class Knight implements Piece{
 
     }
 
-    @Override
-    public boolean isWhite() {
-        return white;
+    public PieceColor getColor() {
+        return color;
     }
 
     @Override

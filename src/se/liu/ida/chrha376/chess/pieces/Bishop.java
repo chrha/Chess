@@ -10,19 +10,19 @@ import java.util.List;
  * Used as Piece on Board.
  */
 public class Bishop implements Piece{
-    private boolean white;
+    private PieceColor color;
     private ImageIcon icon;
 
-    public Bishop(boolean white) {
-        this.white = white;
-        if (white){
+    public Bishop(PieceColor color) {
+        this.color = color;
+        if (color == PieceColor.WHITE){
             icon = new ImageIcon(getClass().getResource("/chess/resources/Bishop_White.png"));
         }else{
             icon = new ImageIcon(getClass().getResource("/chess/resources/Bishop_Black.png"));
         }
     }
-    public boolean isWhite(){
-        return white;
+    public PieceColor getColor(){
+        return color;
     }
 
     @Override

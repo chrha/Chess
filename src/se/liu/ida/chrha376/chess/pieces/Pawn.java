@@ -10,22 +10,21 @@ import java.util.List;
  * Used as Piece on Board.
  */
 public class Pawn implements Piece {
-    private boolean white;
+    private PieceColor color;
     private ImageIcon icon;
     private boolean moved;
-    public Pawn(boolean white, boolean moved) {
+    public Pawn(PieceColor color, boolean moved) {
         this.moved = moved;
-        this.white = white;
-        if (white){
+        this.color = color;
+        if (this.color == PieceColor.WHITE){
             icon = new ImageIcon(getClass().getResource("/chess/resources/Pawn_White.png"));
         }else{
             icon = new ImageIcon(getClass().getResource("/chess/resources/Pawn_Black.png"));
         }
     }
 
-    @Override
-    public boolean isWhite() {
-        return white;
+    public PieceColor getColor() {
+        return color;
 
     }
 
@@ -33,7 +32,7 @@ public class Pawn implements Piece {
     public List<Coordinates> moveList(Coordinates from, Coordinates to) {
         List<Coordinates> dir = new ArrayList<>();
 
-        if(white){
+        if(color == PieceColor.WHITE){
             if(!moved){
                 if (((from.getX()+1)<=7)){
                     dir.add(new Coordinates(from.getX()+1,from.getY()+1));

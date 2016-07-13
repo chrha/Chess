@@ -1,6 +1,7 @@
 package se.liu.ida.chrha376.chess;
 
 import se.liu.ida.chrha376.chess.pieces.Piece;
+import se.liu.ida.chrha376.chess.pieces.PieceColor;
 
 import javax.swing.*;
 import java.awt.*;
@@ -26,7 +27,7 @@ public class ChessComponent extends JComponent implements BoardListener {
 
         g.setFont(new Font("TimesRoman", Font.PLAIN, FONT_SIZE));
         g2d.drawString("Turn: ",Board.SIZE * BLOCK,Board.SIZE * BLOCK/2);
-        if (board.isTurn()){
+        if (board.getTurn() == PieceColor.WHITE){
             g2d.setColor(Color.BLACK);
             g2d.drawString("White",Board.SIZE * BLOCK+TURNSTRING_OFFSET,Board.SIZE * BLOCK/2);
         }else{
@@ -34,7 +35,7 @@ public class ChessComponent extends JComponent implements BoardListener {
             g2d.drawString("Black",Board.SIZE * BLOCK+TURNSTRING_OFFSET,Board.SIZE * BLOCK/2);
         }
 
-        if (!board.isKingSafe(board.isTurn())){
+        if (!board.isKingSafe(board.getTurn())){
             g2d.drawString("CHECK!",Board.SIZE * BLOCK,Board.SIZE * BLOCK/3);
         }
 

@@ -10,23 +10,22 @@ import java.util.List;
  * Used as Piece on Board.
  */
 public class King implements Piece {
-    private boolean white;
+    private PieceColor color;
     private ImageIcon icon;
     private boolean moved;
 
-    public King(boolean isWhite,boolean moved) {
+    public King(PieceColor color,boolean moved) {
         this.moved = moved;
-        this.white = isWhite;
-        if (isWhite){
+        this.color = color;
+        if (this.color == PieceColor.WHITE){
             icon = new ImageIcon(getClass().getResource("/chess/resources/King_White.png"));
         }else{
             icon = new ImageIcon(getClass().getResource("/chess/resources/King_Black.png"));
         }
     }
 
-    @Override
-    public boolean isWhite() {
-        return white;
+    public PieceColor getColor() {
+        return color;
     }
 
     @Override

@@ -11,7 +11,7 @@ import java.util.List;
 public interface Piece {
     void setMoved(boolean moved);
     boolean isMoved();
-    boolean isWhite();
+    PieceColor getColor();
     List<Coordinates> moveList(Coordinates from, Coordinates to);
     String getDescription();
      ImageIcon getIcon();

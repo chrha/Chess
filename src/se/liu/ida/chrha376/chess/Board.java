@@ -5,6 +5,7 @@ import se.liu.ida.chrha376.chess.pieces.King;
 import se.liu.ida.chrha376.chess.pieces.Knight;
 import se.liu.ida.chrha376.chess.pieces.Pawn;
 import se.liu.ida.chrha376.chess.pieces.Piece;
+import se.liu.ida.chrha376.chess.pieces.PieceColor;
 import se.liu.ida.chrha376.chess.pieces.Queen;
 import se.liu.ida.chrha376.chess.pieces.Rook;
 
@@ -27,7 +28,7 @@ public class Board
     private Collection<Piece> deadPiecesWhite = new ArrayList<>();
     private Collection<Piece> deadPiecesBlack = new ArrayList<>();
     private List<BoardListener> boardlisteners;
-    private boolean turn = true;
+    private PieceColor turn = PieceColor.WHITE;
 
 
 
@@ -45,7 +46,7 @@ public class Board
         return deadPiecesBlack;
     }
 
-    public boolean isTurn() {
+    public PieceColor getTurn() {
             return turn;
         }
     public Piece getPiece(Coordinates cor) {
@@ -93,15 +94,15 @@ public class Board
 
     /**
      * Checks if one of the kings are safe by checking if any of the opponets pieces are threatening the king.
-     * @param white The color of the king.
+     * @param color The color of the king.
      * @return Whether the king is safe or not
      */
-    public boolean isKingSafe(boolean white) {
-        Coordinates kingpos = findKing(white);
-        if (squares[kingpos.getX()][kingpos.getY()] != null && squares[kingpos.getX()][kingpos.getY()].getDescription().equals("King") && squares[kingpos.getX()][kingpos.getY()].isWhite() == white) {
+    public boolean isKingSafe(PieceColor color) {
+        Coordinates kingpos = findKing(color);
+        if (squares[kingpos.getX()][kingpos.getY()] != null && squares[kingpos.getX()][kingpos.getY()].getDescription().equals("King") && squares[kingpos.getX()][kingpos.getY()].getColor() == turn) {
             for (int j = 0; j < 8; j++) {
                 for (int i = 0; i < 8; i++) {
-                    if (squares[i][j] != null && squares[i][j].isWhite() != white) {
+                    if (squares[i][j] != null && squares[i][j].getColor() != color) {
                         if (squares[i][j].getDescription().equals("Pawn")) {
                             if (i != kingpos.getX() && squares[i][j].moveList(new Coordinates(i, j), new Coordinates(kingpos.getX(), kingpos.getY()))
                                     .contains(new Coordinates(kingpos.getX(), kingpos.getY()))) {
@@ -118,10 +119,10 @@ public class Board
         }
         return true;
     }
-    public Coordinates findKing(boolean white){
+    public Coordinates findKing(PieceColor color){
         for (int y = 0; y < 8; y++) {
             for (int x = 0; x < 8; x++) {
-                if (squares[x][y] != null && squares[x][y].getDescription().equals("King") && squares[x][y].isWhite() == white) {
+                if (squares[x][y] != null && squares[x][y].getDescription().equals("King") && squares[x][y].getColor() == color) {
                     return new Coordinates(x,y);
                 }
             }
@@ -141,27 +142,27 @@ public class Board
         squares[to.getX()][to.getY()] = squares[from.getX()][from.getY()];
         squares[from.getX()][from.getY()] = null;
         squares[to.getX()][to.getY()].setMoved(true);
-        if (k!= null && k.isWhite()){
+        if (k!= null && k.getColor() == PieceColor.WHITE){
             deadPiecesWhite.add(k);
-        }else if(k!=null && !k.isWhite() ) {
+        }else if(k!=null && k.getColor()== PieceColor.BLACK) {
             deadPiecesBlack.add(k);}
         if (!isKingSafe(turn)) {
-            if (k!= null && k.isWhite()){
+            if (k!= null && k.getColor() == PieceColor.WHITE){
                 deadPiecesWhite.remove(k);
-            }else if(k!=null && !k.isWhite() ){
+            }else if(k!=null && k.getColor() == PieceColor.BLACK){
                 deadPiecesBlack.remove(k);
             }
             squares[from.getX()][from.getY()] = squares[to.getX()][to.getY()];
             squares[to.getX()][to.getY()] = k;
-            this.turn = !turn;
+            ChangeTurn();
         }
-        this.turn = !turn;
+        ChangeTurn();
         notifyListeners();
     }
 
     public boolean movePossible(Coordinates from, Coordinates to) {
-        return (squares[from.getX()][from.getY()] != null && turn == squares[from.getX()][from.getY()].isWhite()) &&
-               (((squares[to.getX()][to.getY()] != null && squares[from.getX()][from.getY()].isWhite() != squares[to.getX()][to.getY()].isWhite()) ||
+        return (squares[from.getX()][from.getY()] != null && turn == squares[from.getX()][from.getY()].getColor()) &&
+               (((squares[to.getX()][to.getY()] != null && squares[from.getX()][from.getY()].getColor() != squares[to.getX()][to.getY()].getColor()) ||
                  squares[to.getX()][to.getY()] == null) && squares[from.getX()][from.getY()].moveList(from, to).contains(to));
 
     }
@@ -174,7 +175,7 @@ public class Board
     public boolean checkmate() {
         for (int y = 0; y < SIZE; y++) {
             for (int x = 0; x < SIZE; x++) {
-                if (getPiece(new Coordinates(x, y)) != null && getPiece(new Coordinates(x, y)).isWhite() == turn) {
+                if (getPiece(new Coordinates(x, y)) != null && getPiece(new Coordinates(x, y)).getColor() == turn) {
                     for (int j = 0; j < 8; j++) {
                         for (int i = 0; i < 8; i++) {
                             if (isValid(new Coordinates(x, y), new Coordinates(i, j))) {
@@ -208,7 +209,7 @@ public class Board
     public boolean validPawnmove(Coordinates from,Coordinates to){
         for (Coordinates c : getPiece(from).moveList(from, to)) {
             if (c.getX() == to.getX() && c.getY() == to.getY()) {
-                if (squares[to.getX()][to.getY()] != null && (squares[from.getX()][from.getY()].isWhite() != squares[to.getX()][to.getY()].isWhite() && from.getX() != to.getX())) {
+                if (squares[to.getX()][to.getY()] != null && (squares[from.getX()][from.getY()].getColor() != squares[to.getX()][to.getY()].getColor() && from.getX() != to.getX())) {
                     return true;
                 }
                 if ((squares[c.getX()][c.getY()] == null && from.getX() == to.getX())) {
@@ -264,7 +265,7 @@ public class Board
     }
     public void restart() {
         clearboard();
-        this.turn = true;
+        this.turn = PieceColor.WHITE;
         deadPiecesWhite = new ArrayList<>();
         deadPiecesBlack = new ArrayList<>();
         boardSetup();
@@ -284,13 +285,13 @@ public class Board
      * @param to Coordinate for the rook.
      */
     public void cancel(Coordinates from, Coordinates to){
-        if((!getPiece(from).isMoved() && !getPiece(to).isMoved()) && (getPiece(from).isWhite() == getPiece(to).isWhite())){
+        if((!getPiece(from).isMoved() && !getPiece(to).isMoved()) && (getPiece(from).getColor() == getPiece(to).getColor())){
             if(noObstacle(getPiece(to).moveList(to, from))){
                 if(from.getX() > to.getX()){
                     if(place(from,new Coordinates((from.getX()-1),from.getY())) &&
                             place(from,new Coordinates((from.getX()-2),from.getY()))){
                         replace(from,new Coordinates((from.getX()-2),from.getY()));
-                        this.turn = !turn;
+                        ChangeTurn();
                         replace(to,new Coordinates((from.getX()-1),from.getY()));
                         squares[from.getX()-1][from.getY()].setMoved(true);
                         squares[from.getX()-2][from.getY()].setMoved(true);
@@ -300,7 +301,7 @@ public class Board
                     if(place(from,new Coordinates((from.getX()+1),from.getY())) &&
                             place(from,new Coordinates((from.getX()+2),from.getY()))){
                         replace(from,new Coordinates((from.getX()+2),from.getY()));
-                        this.turn = !turn;
+                        ChangeTurn();
                         replace(to,new Coordinates((from.getX()+1),from.getY()));
                         squares[from.getX()+1][from.getY()].setMoved(true);
                         squares[from.getX()+2][from.getY()].setMoved(true);
@@ -311,7 +312,13 @@ public class Board
         }
         notifyListeners();
     }
-
+    public void ChangeTurn(){
+        if (this.turn == PieceColor.WHITE){
+            this.turn = PieceColor.BLACK;
+        }else{
+            this.turn = PieceColor.WHITE;
+        }
+    }
     /**
      * Method too complex and can not be simplified. Places Pieces on Board in an orthodox chess setup.
      */
@@ -319,29 +326,29 @@ public class Board
         for (int y = 0; y < SIZE; y++) {
             for (int x = 0; x < SIZE; x++) {
                 if (y == 1) {
-                    this.squares[x][y] = new Pawn(true, false);
+                    this.squares[x][y] = new Pawn(PieceColor.WHITE, false);
                 } else if (y == SIZE - 2) {
-                    this.squares[x][y] = new Pawn(false, false);
+                    this.squares[x][y] = new Pawn(PieceColor.BLACK, false);
                 } else if ((x == 0 && y == 0) || (x == SIZE - 1 && y == 0)) {
-                    this.squares[x][y] = new Rook(true, false);
+                    this.squares[x][y] = new Rook(PieceColor.WHITE, false);
                 } else if ((x == 0 && y == SIZE - 1) || (x == SIZE - 1 && y == SIZE - 1)) {
-                    this.squares[x][y] = new Rook(false, false);
+                    this.squares[x][y] = new Rook(PieceColor.BLACK, false);
                 } else if ((x == 1 && y == 0) || (x == SIZE - 2 && y == 0)) {
-                    this.squares[x][y] = new Knight(true);
+                    this.squares[x][y] = new Knight(PieceColor.WHITE);
                 } else if ((x == 1 && y == SIZE - 1) || (x == SIZE - 2 && y == SIZE - 1)) {
-                    this.squares[x][y] = new Knight(false);
+                    this.squares[x][y] = new Knight(PieceColor.BLACK);
                 } else if ((x == 2 && y == 0) || (x == SIZE - 3 && y == 0)) {
-                    this.squares[x][y] = new Bishop(true);
+                    this.squares[x][y] = new Bishop(PieceColor.WHITE);
                 } else if ((x == 2 && y == SIZE - 1) || (x == SIZE - 3 && y == SIZE - 1)) {
-                    this.squares[x][y] = new Bishop(false);
+                    this.squares[x][y] = new Bishop(PieceColor.BLACK);
                 } else if ((x == 3 && y == 0)) {
-                    this.squares[x][y] = new King(true, false);
+                    this.squares[x][y] = new King(PieceColor.WHITE, false);
                 } else if ((x == 3 && y == SIZE - 1)) {
-                    this.squares[x][y] = new King(false, false);
+                    this.squares[x][y] = new King(PieceColor.BLACK, false);
                 } else if (x == 4 && y == 0) {
-                    this.squares[x][y] = new Queen(true);
+                    this.squares[x][y] = new Queen(PieceColor.WHITE);
                 } else if (x == 4 && y == SIZE - 1) {
-                    this.squares[x][y] = new Queen(false);
+                    this.squares[x][y] = new Queen(PieceColor.BLACK);
                 }
             }
         }

@@ -56,7 +56,7 @@ public class NewPieceDialog extends JDialog
 
 
 	@Override public void actionPerformed(final ActionEvent e) {
-	    board.set(cord,new Queen(board.getPiece(cord).isWhite()));
+	    board.set(cord,new Queen(board.getPiece(cord).getColor()));
 	    dispose();
 
 
@@ -65,7 +65,7 @@ public class NewPieceDialog extends JDialog
 
 
 	@Override public void actionPerformed(final ActionEvent e) {
-	    board.set(cord,new Rook(board.getPiece(cord).isWhite(), true));
+	    board.set(cord,new Rook(board.getPiece(cord).getColor(), true));
 	    dispose();
 
 	}
@@ -73,7 +73,7 @@ public class NewPieceDialog extends JDialog
 
 
 	@Override public void actionPerformed(final ActionEvent e) {
-	    board.set(cord,new Bishop(board.getPiece(cord).isWhite()));
+	    board.set(cord,new Bishop(board.getPiece(cord).getColor()));
 	    dispose();
 
 
@@ -82,7 +82,7 @@ public class NewPieceDialog extends JDialog
 
 
 	@Override public void actionPerformed(final ActionEvent e) {
-	    board.set(cord,new Knight(board.getPiece(cord).isWhite()));
+	    board.set(cord,new Knight(board.getPiece(cord).getColor()));
 	    dispose();
 
 

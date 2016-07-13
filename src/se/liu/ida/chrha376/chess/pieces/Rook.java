@@ -11,22 +11,21 @@ import java.util.List;
  * Used as Piece on Board.
  */
 public class Rook implements Piece {
-    private boolean white;
+    private PieceColor color;
     private ImageIcon icon;
     private boolean moved;
 
-    public Rook(boolean white, boolean moved) {
+    public Rook(PieceColor color, boolean moved) {
         this.moved = moved;
-        this.white = white;
-        if (white){
+        this.color = color;
+        if (this.color == PieceColor.WHITE){
             icon = new ImageIcon(getClass().getResource("/chess/resources/Rook_White.png"));
         }else{
             icon = new ImageIcon(getClass().getResource("/chess/resources/Rook_Black.png"));
         }
     }
-    @Override
-    public boolean isWhite() {
-        return white;
+    public PieceColor getColor() {
+        return color;
     }
 
     @Override
