@@ -12,7 +12,9 @@ public interface Piece {
     void setMoved(boolean moved);
     boolean isMoved();
     PieceColor getColor();
-    List<Coordinates> moveList(Coordinates from, Coordinates to);
+    boolean hasColor(PieceColor color);
+    List<Coordinates> getPossibleMoves(Coordinates from, Coordinates to);
+    boolean hasType(PieceType type);
     String getDescription();
      ImageIcon getIcon();
 }

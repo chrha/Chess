@@ -22,9 +22,6 @@ public class Queen implements Piece{
         }
     }
 
-    public PieceColor getColor() {
-        return color;
-    }
 
     /**
      * Method dictates where a queen can move not considering the pieces on the board and sense the queen can
@@ -35,7 +32,7 @@ public class Queen implements Piece{
      * get to that destination the method will return an empty List.
      */
     @Override
-    public List<Coordinates> moveList(Coordinates from, Coordinates to) {
+    public List<Coordinates> getPossibleMoves(Coordinates from, Coordinates to) {
         List<Coordinates> dir = new ArrayList<>();
         for (int i = from.getX()+1,z = from.getY()+1; i < 8 && z<8; i++,z++) {
             dir.add(new Coordinates(i, z));
@@ -101,6 +98,11 @@ public class Queen implements Piece{
     public String getDescription() {
         return "Queen";
     }
+    public PieceColor getColor(){
+                return color;
+            }
+    public boolean hasColor(PieceColor color){ return this.color == color;}
+    public boolean hasType(PieceType type){ return type == PieceType.QUEEN;}
     public  ImageIcon getIcon() {
         return icon;
     }

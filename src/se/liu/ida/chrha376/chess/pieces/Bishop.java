@@ -21,12 +21,9 @@ public class Bishop implements Piece{
             icon = new ImageIcon(getClass().getResource("/chess/resources/Bishop_Black.png"));
         }
     }
-    public PieceColor getColor(){
-        return color;
-    }
 
     @Override
-    public List<Coordinates> moveList(Coordinates from, Coordinates to) {
+    public List<Coordinates> getPossibleMoves(Coordinates from, Coordinates to) {
         List<Coordinates> dir = new ArrayList<>();
         for (int i = from.getX()+1,z = from.getY()+1; i < 8 && z<8; i++,z++) {
                 dir.add(new Coordinates(i, z));
@@ -60,9 +57,14 @@ public class Bishop implements Piece{
     }
 
     @Override
+    public PieceColor getColor(){
+            return color;
+        }
+    public boolean hasColor(PieceColor color){ return this.color == color;}
     public String getDescription() {
         return "Bishop";
     }
+    public boolean hasType(PieceType type){ return type == PieceType.BISHOP;}
     public  ImageIcon getIcon() {
         return icon;
     }

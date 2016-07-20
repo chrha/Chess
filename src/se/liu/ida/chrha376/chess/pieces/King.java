@@ -24,12 +24,9 @@ public class King implements Piece {
         }
     }
 
-    public PieceColor getColor() {
-        return color;
-    }
 
     @Override
-    public List<Coordinates> moveList(Coordinates from, Coordinates to) {
+    public List<Coordinates> getPossibleMoves(Coordinates from, Coordinates to) {
         List<Coordinates> dir = new ArrayList<>();
         if ((int)(Math.sqrt(Math.pow(from.getX()-to.getX(),2)+Math.pow(from.getY()-to.getY(),2)))==1 || (int)(Math.sqrt(Math.pow(from.getX()-to.getX(),2)+Math.pow(from.getY()-to.getY(),2)))==(int)Math.sqrt(2)){
             dir.add(new Coordinates(to.getX(),to.getY()));
@@ -38,9 +35,14 @@ public class King implements Piece {
     }
 
     @Override
+    public PieceColor getColor(){
+                return color;
+            }
+    public boolean hasColor(PieceColor color){ return this.color == color;}
     public String getDescription() {
         return "King";
     }
+    public boolean hasType(PieceType type){ return type == PieceType.KING;}
     public ImageIcon getIcon() {
         return icon;
     }

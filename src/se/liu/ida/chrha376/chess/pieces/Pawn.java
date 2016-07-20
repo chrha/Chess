@@ -23,13 +23,9 @@ public class Pawn implements Piece {
         }
     }
 
-    public PieceColor getColor() {
-        return color;
-
-    }
 
     @Override
-    public List<Coordinates> moveList(Coordinates from, Coordinates to) {
+    public List<Coordinates> getPossibleMoves(Coordinates from, Coordinates to) {
         List<Coordinates> dir = new ArrayList<>();
 
         if(color == PieceColor.WHITE){
@@ -81,6 +77,11 @@ public class Pawn implements Piece {
 
     @Override
     public String getDescription() {return "Pawn";}
+    public PieceColor getColor(){
+                return color;
+            }
+    public boolean hasColor(PieceColor color){ return this.color == color;}
+    public boolean hasType(PieceType type){ return type == PieceType.PAWN;}
     public  ImageIcon getIcon() {
         return icon;
     }

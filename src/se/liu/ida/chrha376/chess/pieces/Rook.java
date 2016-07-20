@@ -24,12 +24,9 @@ public class Rook implements Piece {
             icon = new ImageIcon(getClass().getResource("/chess/resources/Rook_Black.png"));
         }
     }
-    public PieceColor getColor() {
-        return color;
-    }
 
     @Override
-    public List<Coordinates> moveList(Coordinates from, Coordinates to) {
+    public List<Coordinates> getPossibleMoves(Coordinates from, Coordinates to) {
         List<Coordinates> dir = new ArrayList<>();
         for (int i = from.getX()+1; i<8 ; i++){
             dir.add(new Coordinates(i,to.getY()));
@@ -66,6 +63,11 @@ public class Rook implements Piece {
     public String getDescription() {
         return "Rook";
     }
+    public PieceColor getColor(){
+                return color;
+            }
+    public boolean hasColor(PieceColor color){ return this.color == color;}
+    public boolean hasType(PieceType type){ return type == PieceType.ROOK;}
     public ImageIcon getIcon() {
         return icon;
     }

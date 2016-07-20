@@ -2,6 +2,7 @@ package se.liu.ida.chrha376.chess;
 
 import se.liu.ida.chrha376.chess.pieces.Piece;
 import se.liu.ida.chrha376.chess.pieces.PieceColor;
+import se.liu.ida.chrha376.chess.pieces.PieceType;
 
 import javax.swing.*;
 import java.awt.*;
@@ -44,7 +45,7 @@ public class ChessComponent extends JComponent implements BoardListener {
             int column =0;
             int pawnCount=0;
             for (Piece p : board.getDeadPiecesWhite() ){
-                if ( p.getDescription().equals("Pawn")&& pawnCount==0){
+                if (p.hasType(PieceType.PAWN) && pawnCount == 0){
                     p.getIcon().paintIcon(this,g2d,Board.SIZE * BLOCK+BLOCK*row ,BLOCK*column);
                     pawnCount++;
                     row++;
@@ -52,7 +53,7 @@ public class ChessComponent extends JComponent implements BoardListener {
                         column++;
                         row=0;
                     }
-                }else if (!p.getDescription().equals("Pawn")){
+                }else if (!p.hasType(PieceType.PAWN)){
                     p.getIcon().paintIcon(this,g2d,Board.SIZE * BLOCK+BLOCK*row ,BLOCK*column);
                     row++;
                     if (row>2){
@@ -69,7 +70,7 @@ public class ChessComponent extends JComponent implements BoardListener {
             int column =-1;
             int pawnCount=0;
             for (Piece p : board.getDeadPiecesBlack() ){
-                if ( p.getDescription().equals("Pawn")&& pawnCount==0){
+                if ( p.hasType(PieceType.PAWN)&& pawnCount==0){
                     p.getIcon().paintIcon(this,g2d,Board.SIZE * BLOCK+BLOCK*row ,Board.SIZE * BLOCK+BLOCK*column);
                     pawnCount++;
                     row++;
@@ -77,7 +78,7 @@ public class ChessComponent extends JComponent implements BoardListener {
                         column--;
                         row=0;
                     }
-                }else if (!p.getDescription().equals("Pawn")){
+                }else if (!p.hasType(PieceType.PAWN)){
                     p.getIcon().paintIcon(this,g2d,Board.SIZE * BLOCK+BLOCK*row ,Board.SIZE * BLOCK+BLOCK*column);
                     row++;
                     if (row>2){

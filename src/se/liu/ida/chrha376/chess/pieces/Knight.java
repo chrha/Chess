@@ -23,12 +23,8 @@ public class Knight implements Piece{
 
     }
 
-    public PieceColor getColor() {
-        return color;
-    }
-
     @Override
-    public List<Coordinates> moveList(Coordinates from, Coordinates to) {
+    public List<Coordinates> getPossibleMoves(Coordinates from, Coordinates to) {
         List<Coordinates> dir = new ArrayList<>();
         double dis = Math.sqrt(Math.pow((from.getX()-to.getX()),2) + Math.pow((from.getY()-to.getY()),2));
 	/**
@@ -46,6 +42,11 @@ public class Knight implements Piece{
     public String getDescription() {
         return "Knight";
     }
+    public PieceColor getColor(){
+                return color;
+            }
+    public boolean hasColor(PieceColor color){ return this.color == color;}
+    public boolean hasType(PieceType type){ return type == PieceType.KNIGHT;}
     public ImageIcon getIcon() {
         return icon;
     }
