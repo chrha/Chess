@@ -29,46 +29,26 @@ public class Pawn implements Piece {
         List<Coordinates> dir = new ArrayList<>();
 
         if(color == PieceColor.WHITE){
-            if(!moved){
-                if (((from.getX()+1)<=7)){
-                    dir.add(new Coordinates(from.getX()+1,from.getY()+1));
-                }if (((from.getX()-1)>=0)){
-                    dir.add(new Coordinates(from.getX()-1,from.getY()+1));
-                }
-                dir.add(new Coordinates(from.getX(),from.getY()+1));
-                dir.add(new Coordinates(from.getX(),from.getY()+2));
-
-
-
-
-            }else{
-                if (((from.getX()+1)<=7)){
-                    dir.add(new Coordinates(from.getX()+1,from.getY()+1));
-                }if (((from.getX()-1)>=0)){
-                    dir.add(new Coordinates(from.getX()-1,from.getY()+1));
-                }
-                dir.add(new Coordinates(from.getX(),from.getY()+1));
+            if (((from.getX()+1)<=7)){
+                dir.add(new Coordinates(from.getX()+1,from.getY()+1));
+            }if (((from.getX()-1)>=0)) {
+                dir.add(new Coordinates(from.getX() - 1, from.getY() + 1));
             }
+            dir.add(new Coordinates(from.getX(),from.getY()+1));
+            if(!moved){
+                dir.add(new Coordinates(from.getX(),from.getY()+2));
+            }
+
         }else {
+            if (((from.getX() + 1) <= 7)) {
+                dir.add(new Coordinates(from.getX() + 1, from.getY() - 1));
+            }
+            if (((from.getX() - 1) >= 0)) {
+                dir.add(new Coordinates(from.getX() - 1, from.getY() - 1));
+            }
+            dir.add(new Coordinates(from.getX(), from.getY() - 1));
             if (!moved) {
-                if (((from.getX() + 1) <= 7)) {
-                    dir.add(new Coordinates(from.getX() + 1, from.getY() - 1));
-                }
-                if (((from.getX() - 1) >= 0)) {
-                    dir.add(new Coordinates(from.getX() - 1, from.getY() - 1));
-                }
-                dir.add(new Coordinates(from.getX(), from.getY() - 1));
                 dir.add(new Coordinates(from.getX(), from.getY() - 2));
-
-
-            } else {
-                if (((from.getX() + 1) <= 7)) {
-                    dir.add(new Coordinates(from.getX() + 1, from.getY() - 1));
-                }
-                if (((from.getX() - 1) >= 0)) {
-                    dir.add(new Coordinates(from.getX() - 1, from.getY() - 1));
-                }
-                dir.add(new Coordinates(from.getX(), from.getY() - 1));
             }
         }
         return dir;

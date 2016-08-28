@@ -62,33 +62,38 @@ public class Queen implements Piece{
                 return dir;
             }
         }
-        dir.clear();
-        for (int i = from.getX()+1; i<8 ; i++){
-            dir.add(new Coordinates(i,to.getY()));
-            if (i == to.getX() && from.getY() == to.getY()){
-                return dir;
-            }
-        }
 
-        dir.clear();
-        for (int i = from.getX()-1; i>=0 ; i--) {
-            dir.add(new Coordinates(i,to.getY()));
-            if (i == to.getX() && from.getY() == to.getY()) {
-                return dir;
+        if (from.getY() == to.getY()) {
+            dir.clear();
+            for (int i = from.getX() + 1; i < 8; i++) {
+                dir.add(new Coordinates(i, to.getY()));
+                if (i == to.getX()) {
+                    return dir;
+                }
+            }
+
+            dir.clear();
+            for (int i = from.getX() - 1; i >= 0; i--) {
+                dir.add(new Coordinates(i, to.getY()));
+                if (i == to.getX()) {
+                    return dir;
+                }
             }
         }
-        dir.clear();
-        for (int i = from.getY()+1; i<8 ; i++) {
-            dir.add(new Coordinates(to.getX(),i));
-            if (i == to.getY() && from.getX() == to.getX()) {
-                return dir;
+        if (from.getX() == to.getX()) {
+            dir.clear();
+            for (int i = from.getY() + 1; i < 8; i++) {
+                dir.add(new Coordinates(to.getX(), i));
+                if (i == to.getY()) {
+                    return dir;
+                }
             }
-        }
-        dir.clear();
-        for (int i = from.getY()-1; i>=0 ; i--) {
-            dir.add(new Coordinates(to.getX(),i));
-            if (i == to.getY() && from.getX() == to.getX()) {
-                return dir;
+            dir.clear();
+            for (int i = from.getY() - 1; i >= 0; i--) {
+                dir.add(new Coordinates(to.getX(), i));
+                if (i == to.getY()) {
+                    return dir;
+                }
             }
         }
         dir.clear();

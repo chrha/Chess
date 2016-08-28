@@ -32,7 +32,6 @@ public class Board
     private PieceColor turn = PieceColor.WHITE;
 
 
-
     public Board() {
         this.squares = new Piece[SIZE][SIZE];
         this.boardlisteners = new ArrayList<>();
@@ -48,8 +47,9 @@ public class Board
     }
 
     public PieceColor getTurn() {
-            return turn;
-        }
+        return turn;
+    }
+
     public Piece getPiece(Coordinates cor) {
         return this.squares[cor.getX()][cor.getY()];
     }
@@ -57,26 +57,29 @@ public class Board
     public void movePiece(Coordinates from, Coordinates to) {
         if (isValidMove(from, to)) {
             replace(from, to);
-        }if ((hasPieceAt(from) && hasPieceAt(to)) && getPiece(from).hasType(PieceType.KING) && getPiece(to).hasType(PieceType.ROOK)){
+        }
+        if ((hasPieceAt(from) && hasPieceAt(to)) && getPiece(from).hasType(PieceType.KING) &&
+            getPiece(to).hasType(PieceType.ROOK)) {
             cancel(from, to);
         }
-        if (checkmate()){
+        if (checkmate()) {
             int reply = JOptionPane.showConfirmDialog(null, "CHECKMATE! \n Restart?", "chess", JOptionPane.YES_NO_OPTION);
-            if(reply == JOptionPane.YES_OPTION){
+            if (reply == JOptionPane.YES_OPTION) {
                 restart();
-            }else{
+            } else {
                 System.exit(0);
             }
         }
-            checkPawn(to);
-            notifyListeners();
+        checkPawn(to);
+        notifyListeners();
     }
-    public boolean hasPieceAt(Coordinates cord){
-        return getPiece(cord)!=null;
+
+    public boolean hasPieceAt(Coordinates cord) {
+        return getPiece(cord) != null;
     }
 
     public boolean noObstacle(List<Coordinates> l) {
-        if(!l.isEmpty()){
+        if (!l.isEmpty()) {
             for (Coordinates c : l.subList(0, l.size() - 1)) {
                 if (hasPieceAt(c)) {
                     return false;
@@ -98,7 +101,9 @@ public class Board
 
     /**
      * Checks if one of the kings are safe by checking if any of the opponets pieces are threatening the king.
+     *
      * @param color The color of the king.
+     *
      * @return Whether the king is safe or not
      */
     public boolean isKingSafe(PieceColor color) {
@@ -107,14 +112,14 @@ public class Board
             for (int j = 0; j < 8; j++) {
                 for (int i = 0; i < 8; i++) {
 
-                    if (hasPieceAt(new Coordinates(i,j)) && !getPiece(new Coordinates(i,j)).hasColor(color)) {
-                        List<Coordinates> possibleMoves = getPiece(new Coordinates(i,j)).getPossibleMoves(new Coordinates(i, j), kingpos);
-                        if (getPiece(new Coordinates(i,j)).hasType(PieceType.PAWN)) {
+                    if (hasPieceAt(new Coordinates(i, j)) && !getPiece(new Coordinates(i, j)).hasColor(color)) {
+                        List<Coordinates> possibleMoves =
+                                getPiece(new Coordinates(i, j)).getPossibleMoves(new Coordinates(i, j), kingpos);
+                        if (getPiece(new Coordinates(i, j)).hasType(PieceType.PAWN)) {
                             if (i != kingpos.getX() && possibleMoves.contains(kingpos)) {
                                 return false;
                             }
-                        } else if (possibleMoves.contains(kingpos) &&
-                                   noObstacle(possibleMoves)) {
+                        } else if (possibleMoves.contains(kingpos) && noObstacle(possibleMoves)) {
                             return false;
                         }
                     }
@@ -123,11 +128,13 @@ public class Board
         }
         return true;
     }
-    public Coordinates findKing(PieceColor color){
+
+    public Coordinates findKing(PieceColor color) {
         for (int y = 0; y < 8; y++) {
             for (int x = 0; x < 8; x++) {
-                if (hasPieceAt(new Coordinates(x,y)) && getPiece(new Coordinates(x,y)).hasType(PieceType.KING) && getPiece(new Coordinates(x,y)).hasColor(color)) {
-                    return new Coordinates(x,y);
+                if (hasPieceAt(new Coordinates(x, y)) && getPiece(new Coordinates(x, y)).hasType(PieceType.KING) &&
+                    getPiece(new Coordinates(x, y)).hasColor(color)) {
+                    return new Coordinates(x, y);
                 }
             }
         }
@@ -135,10 +142,11 @@ public class Board
     }
 
     /**
-     *Moves piece only if king is safe and adds dead pieces to a list if
-     * one of the oponents pieces is where you are trying to move to.
+     * Moves piece only if king is safe and adds dead pieces to a list if one of the oponents pieces is where you are trying to
+     * move to.
+     *
      * @param from The coordinates for the piece that you are trying to move.
-     * @param to The coordinate that you are trying to move the piece to.
+     * @param to   The coordinate that you are trying to move the piece to.
      */
 
     public void replace(Coordinates from, Coordinates to) {
@@ -146,14 +154,15 @@ public class Board
         squares[to.getX()][to.getY()] = squares[from.getX()][from.getY()];
         squares[from.getX()][from.getY()] = null;
         squares[to.getX()][to.getY()].setMoved(true);
-        if (k!= null && k.hasColor(PieceColor.WHITE)){
+        if (k != null && k.hasColor(PieceColor.WHITE)) {
             deadPiecesWhite.add(k);
-        }else if(k != null && k.hasColor(PieceColor.BLACK)) {
-            deadPiecesBlack.add(k);}
+        } else if (k != null && k.hasColor(PieceColor.BLACK)) {
+            deadPiecesBlack.add(k);
+        }
         if (!isKingSafe(turn)) {
-            if (k != null && k.hasColor(PieceColor.WHITE)){
+            if (k != null && k.hasColor(PieceColor.WHITE)) {
                 deadPiecesWhite.remove(k);
-            }else if(k != null && k.hasColor(PieceColor.BLACK)){
+            } else if (k != null && k.hasColor(PieceColor.BLACK)) {
                 deadPiecesBlack.remove(k);
             }
             squares[from.getX()][from.getY()] = getPiece(to);
@@ -166,20 +175,21 @@ public class Board
 
     public boolean movePossible(Coordinates from, Coordinates to) {
         return (hasPieceAt(from) && turn == getPiece(from).getColor()) &&
-               (((hasPieceAt(to) && getPiece(from).getColor() != getPiece(to).getColor()) ||
-                 getPiece(to) == null) && getPiece(from).getPossibleMoves(from, to).contains(to));
+               (((hasPieceAt(to) && getPiece(from).getColor() != getPiece(to).getColor()) || getPiece(to) == null) &&
+                getPiece(from).getPossibleMoves(from, to).contains(to));
 
     }
 
     /**
-     * Checks if is checkmate by checking if any of your pieces can move in a certain way to protect the king.
-     * Method overly complex and cant be simplified.
+     * Checks if is checkmate by checking if any of your pieces can move in a certain way to protect the king. Method overly
+     * complex and cant be simplified.
+     *
      * @return If you are in checkmate.
      */
     public boolean checkmate() {
         for (int y = 0; y < SIZE; y++) {
             for (int x = 0; x < SIZE; x++) {
-                if (hasPieceAt(new Coordinates(x, y))&& getPiece(new Coordinates(x, y)).hasColor(turn) ){
+                if (hasPieceAt(new Coordinates(x, y)) && getPiece(new Coordinates(x, y)).hasColor(turn)) {
                     for (int j = 0; j < 8; j++) {
                         for (int i = 0; i < 8; i++) {
                             if (isValidMove(new Coordinates(x, y), new Coordinates(i, j))) {
@@ -197,12 +207,12 @@ public class Board
         return true;
     }
 
-    public boolean isValidMove(Coordinates from, Coordinates to){
+    public boolean isValidMove(Coordinates from, Coordinates to) {
 
         if (movePossible(from, to)) {
             if (getPiece(from).hasType(PieceType.PAWN)) {
-                return validPawnmove(from,to);
-            }else if (noObstacle(getPiece(from).getPossibleMoves(from, to))) {
+                return validPawnmove(from, to);
+            } else if (noObstacle(getPiece(from).getPossibleMoves(from, to))) {
 
                 return true;
             }
@@ -210,7 +220,8 @@ public class Board
 
         return false;
     }
-    public boolean validPawnmove(Coordinates from,Coordinates to){
+
+    public boolean validPawnmove(Coordinates from, Coordinates to) {
         for (Coordinates c : getPiece(from).getPossibleMoves(from, to)) {
             if (c.getX() == to.getX() && c.getY() == to.getY()) {
                 if (hasPieceAt(to) && (getPiece(from).getColor() != getPiece(to).getColor() && from.getX() != to.getX())) {
@@ -236,15 +247,17 @@ public class Board
 
     /**
      * Returns if king is safe after a move, by placing that piece in the coordinate.
+     *
      * @param from Coordinate for the piece that you are moving
-     * @param to Coordinate that you are moving to.
+     * @param to   Coordinate that you are moving to.
+     *
      * @return If the move can save the king.
      */
-    public boolean place(Coordinates from,Coordinates to){
+    public boolean place(Coordinates from, Coordinates to) {
         Piece k = getPiece(to);
         squares[to.getX()][to.getY()] = getPiece(from);
         squares[from.getX()][from.getY()] = null;
-        if (isKingSafe(turn)){
+        if (isKingSafe(turn)) {
             squares[from.getX()][from.getY()] = getPiece(to);
             squares[to.getX()][to.getY()] = k;
             return true;
@@ -254,19 +267,21 @@ public class Board
         return false;
     }
 
-    public void checkPawn(Coordinates cor){
-        if(hasPieceAt(cor) && getPiece(cor).hasType(PieceType.PAWN) && ((cor.getY() == 7) || (cor.getY() == 0))) {
-	    /**
+    public void checkPawn(Coordinates cor) {
+        if (hasPieceAt(cor) && getPiece(cor).hasType(PieceType.PAWN) && ((cor.getY() == 7) || (cor.getY() == 0))) {
+            /**
              * We are not intrested in the result of NewPieceDialog, only that it shows us our dialog.
              */
             new NewPieceDialog(this, cor);
         }
 
     }
-    public void set(Coordinates cor,Piece p){
+
+    public void set(Coordinates cor, Piece p) {
         squares[cor.getX()][cor.getY()] = p;
         notifyListeners();
     }
+
     public void restart() {
         clearboard();
         this.turn = PieceColor.WHITE;
@@ -275,6 +290,7 @@ public class Board
         boardSetup();
 
     }
+
     public void clearboard() {
         for (int y = 0; y < SIZE; y++) {
             for (int x = 0; x < SIZE; x++) {
@@ -285,30 +301,33 @@ public class Board
 
     /**
      * Metod for canceling.
+     *
      * @param from Coordinate for the king.
-     * @param to Coordinate for the rook.
+     * @param to   Coordinate for the rook.
      */
-    public void cancel(Coordinates from, Coordinates to){
+    public void cancel(Coordinates from, Coordinates to) {
 
-        if((!getPiece(from).isMoved() && !getPiece(to).isMoved()) && (getPiece(from).hasColor( getPiece(to).getColor() )) ){
-            if(noObstacle(getPiece(to).getPossibleMoves(to, from))){
-                if(from.getX() > to.getX()){
-                   help(from,to,-2,-1);
-                    }
-                }else if(from.getX() < to.getX()) {
-                help(from,to,2,1);
+        if ((!getPiece(from).isMoved() && !getPiece(to).isMoved()) && (getPiece(from).hasColor(getPiece(to).getColor()))) {
+            if (noObstacle(getPiece(to).getPossibleMoves(to, from))) {
+                if (from.getX() > to.getX()) {
+                    cancelhelp(from, to, -2, -1);
+                }
+            } else if (from.getX() < to.getX()) {
+                cancelhelp(from,to,2,1);
+
             }
         }
-        notifyListeners();
-    }
-    public void help(Coordinates from, Coordinates to, int x,int y){
+
+    notifyListeners();
+}
+    public void cancelhelp(Coordinates from, Coordinates to, int x,int y){
         if(place(from,new Coordinates((from.getX()+y),from.getY())) &&
            place(from,new Coordinates((from.getX()+x),from.getY()))){
             replace(from,new Coordinates((from.getX()+x),from.getY()));
             changeTurn();
             replace(to,new Coordinates((from.getX()+y),from.getY()));
-            squares[from.getX()-1][from.getY()].setMoved(true);
-            squares[from.getX()-2][from.getY()].setMoved(true);
+            squares[from.getX()+y][from.getY()].setMoved(true);
+            squares[from.getX()+x][from.getY()].setMoved(true);
         }
     }
     public void changeTurn(){

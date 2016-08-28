@@ -28,7 +28,7 @@ public class King implements Piece {
     @Override
     public List<Coordinates> getPossibleMoves(Coordinates from, Coordinates to) {
         List<Coordinates> dir = new ArrayList<>();
-        if ((int)(Math.sqrt(Math.pow(from.getX()-to.getX(),2)+Math.pow(from.getY()-to.getY(),2)))==1 || (int)(Math.sqrt(Math.pow(from.getX()-to.getX(),2)+Math.pow(from.getY()-to.getY(),2)))==(int)Math.sqrt(2)){
+        if (Math.abs(from.getX()-to.getX())<=1 && Math.abs(from.getY()-to.getY())<=1){
             dir.add(new Coordinates(to.getX(),to.getY()));
         }
         return dir;

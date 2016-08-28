@@ -26,13 +26,8 @@ public class Knight implements Piece{
     @Override
     public List<Coordinates> getPossibleMoves(Coordinates from, Coordinates to) {
         List<Coordinates> dir = new ArrayList<>();
-        double dis = Math.sqrt(Math.pow((from.getX()-to.getX()),2) + Math.pow((from.getY()-to.getY()),2));
-	/**
-	 * dis is the exact distance to a possible coordinate in for Knight based on Pythagoras theorem.
-         * Java is complaining about comparing floating point values for exact equality, but sense we are comparing
-         * Math.sqrt(5) == Math.sqrt(5) this should not be a problem.
-         */
-        if (dis == Math.sqrt(5)){
+        if ((Math.abs(from.getX()-to.getX()) == 2 && Math.abs(from.getY()-to.getY()) == 1) ||
+            (Math.abs(from.getX()-to.getX()) == 1 && Math.abs(from.getY()-to.getY()) == 2)){
             dir.add(new Coordinates(to.getX(),to.getY()));
         }
         return dir;
